@@ -1,0 +1,69 @@
+[
+  {
+    "id": "usr_12345",
+    "password": "Aa123456!",
+    "name": "ישראל ישראלי",
+    "email": "israel@example.com",
+    "phone": "050-1234567",
+    "cart": [
+      {
+        "productId": 1001,
+        "quantity": 1
+      },
+      {
+        "productId": 4001,
+        "quantity": 2
+      }
+    ]
+  },
+  {
+    "id": "usr_23456",
+    "password": "Secure$Pass789",
+    "name": "שרה כהן",
+    "email": "sarah@example.com",
+    "phone": "052-7654321",
+    "cart": [
+      {
+        "productId": 2004,
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "id": "usr_34567",
+    "password": "StrongPwd!2023",
+    "name": "דן לוי",
+    "email": "dan@example.com",
+    "phone": "054-9876543",
+    "cart": []
+  },
+  {
+    "id": "usr_45678",
+    "password": "P@ssw0rd2023",
+    "name": "מיכל אברהם",
+    "email": "michal@example.com",
+    "phone": "053-1472583",
+    "cart": [
+      {
+        "productId": 3002,
+        "quantity": 1
+      },
+      {
+        "productId": 4004,
+        "quantity": 1
+      },
+      {
+        "productId": 6002,
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "id": "usr_56789",
+    "password": "SecretP@ss321",
+    "name": "יוסף גרין",
+    "email": "yossef@example.com",
+    "phone": "058-3698521",
+    "cart": []
+  }
+]
