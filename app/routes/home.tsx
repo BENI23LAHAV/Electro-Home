@@ -1,34 +1,16 @@
 import type { Route } from "./+types/home";
-import { Welcome } from "../welcome/welcome";
-import CategoriesService from "app/lib/services/categoriesService";
-import ProductService from "app/lib/services/productService";
-import type { Category, Product } from "~/lib/definitions";
-
-export function meta({}: Route.MetaArgs) {
-  return [
-    { title: "New React Router App" },
-    { name: "description", content: "Welcome to React Router!" },
-  ];
-}
-
+import Navbar from "./navbar";
+import "app/app.css";
+import { HeadPage } from "./homeComponents";
+import BodyPage from "./homeProductsComponents";
+import CategoriesService from "../lib/services/categoriesService";
+import type { Category } from "../lib/definitions";
+//
 export default async function Home() {
-  const categories = (await CategoriesService?.getCategories())
-    .data as Category[];
-
   return (
-    <>
-      <ul>
-        {categories?.map((category: Category) => (
-          <>
-            {" "}
-            <li key={category.id}>
-              <a href={`/category/${category.id}`}>{category.name}</a>
-            </li>
-          </>
-        ))}
-      </ul>
-
-      {/* <Welcome /> */}
-    </>
+    <div className="w-[70%] mx-auto">
+      <HeadPage />
+      <BodyPage />
+    </div>
   );
 }
