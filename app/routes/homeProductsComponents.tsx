@@ -30,6 +30,8 @@ export default function BodyPage() {
 
         <SortBy />
       </div>
+      <SearchInput />
+      <ProductsGrid />
     </div>
   );
 }
@@ -66,11 +68,11 @@ function Categories(props: any) {
 function Button(props: any) {
   return (
     <button
-      className="bg-white
+      className={`bg-white
       mx-1.5 px-6 py-3 
       text-[var(--color-dark)] rounded-full 
       shadow-[var(--shadow-card)] font-medium hover:bg-[var(--color-primary-light)] hover:text-white
-        hover:translate-y-[-5px] hover:duration-300 hover:shadow-[0_10px_20px_rgba(110,0,255,0.2)]">
+        hover:translate-y-[-5px] hover:duration-300 hover:shadow-[0_10px_20px_rgba(110,0,255,0.2)] `}>
       {props.children}
     </button>
   );
@@ -154,7 +156,7 @@ function PriceSlider() {
 }
 
 function SortBy(props: any) {
-  const soryBy = ["פופולאריות", "מחיר: גבוה לנמוך", "מחיר: נמוך לגבוה"];
+  const soryBy = ["פופולריות", "מחיר: גבוה לנמוך", "מחיר: נמוך לגבוה"];
   const [clicked, setClicked] = useState<number>(0);
 
   const clickedStyle = "bg-[var(--color-primary)] text-white";
@@ -166,7 +168,7 @@ function SortBy(props: any) {
         <p
           className={`${
             clicked === k ? clickedStyle : "bg-white text-[var(--color-dark)]"
-          }   px-3 py-2 hover:bg-[var(--color-primary)] hover:text-white hover:cursor-pointer`}
+          } font-medium  px-3 py-2 hover:bg-[var(--color-primary)] hover:text-white hover:cursor-pointer`}
           key={k}
           onClick={() => setClicked(k)}>
           {item}
@@ -199,4 +201,63 @@ function FilterComponent(props: any) {
     </svg>
   );
 }
-function SearchInput(props: any) {}
+function SearchInput(props: any) {
+  return (
+    <div className="min-w-[90%] max-h-12 mt-10  rounded-full overflow-hidden shadow-[var(--shadow-card)] relative z-10">
+      <input
+        type="text"
+        placeholder="חפש מוצרים..."
+        className="w-full bg-white  h-12 pr-5 outline-none"
+      />
+      <button className=" absolute left-0 h-12 w-20 font-medium bg-[var(--color-primary-light)] hover:bg-[var(--color-primary)] hover:cursor-pointer text-white z-20">
+        חיפוש
+      </button>
+    </div>
+  );
+}
+
+const ProductsGrid: React.FC = () => {
+  const items = Array.from({ length: 12 }, (_, i) => `פריט ${i + 1}`);
+
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-7 p-4 mt-10">
+      {items.map((item, k) => (
+        <div
+          key={k}
+          className="text-right bg-white hover:bg-[var(--color-light)] duration-300 h-90 overflow-hidden shadow-[var(--shadow-card)] rounded-md ">
+          <div className="min-w-full max-h-40 min-h-40 overflow-hidden relative">
+            <img
+              src="https://d3m9l0v76dty0.cloudfront.net/system/photos/13443016/original/6c17d7d713664290986a2e65c7492633.jpg"
+              alt=""
+              className="w-full h-full  object-cover hover:transform-content hover:scale-[1.1] transition-[var(--transition-default)]"
+            />
+            {k % 3 === 0 && (
+              <span className=" absolute top-5 right-5  bg-[var(--color-secondary)] rounded-full px-2 py-1 text-[12px] font-semibold text-[var(--color-dark)]">
+                במבצע!
+              </span>
+            )}
+          </div>{" "}
+          <h2 className="text-lg font-bold  mr-4 text-[var(--color-dark)]">
+            {" "}
+            {item}
+          </h2>
+          <h3 className="max-h-28 min-h-28 overflow-hidden my-2 mx-4 text-md text-[var(--color-dark-light)]">
+            some description... some description... some description... some
+            description... some description... some description...
+            description...{" "}
+          </h3>
+          <div className="flex flex-row justify-between px-5">
+            <p className="text-[var(--color-primary-light)] text-xl font-bold">
+              3000 ₪
+            </p>
+            <button
+              className="bg-[var(--color-primary-light)] rounded-full px-2 py-1 text-white hover:bg-[var(--color-secondary)] transition-[var(--transition-default)]
+            hover:translate-y-[-5px] hover:duration-300 font-medium hover:cursor-pointer">
+              הוספה לסל
+            </button>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+};
