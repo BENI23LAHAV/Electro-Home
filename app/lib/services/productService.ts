@@ -1,11 +1,11 @@
 import fs from "fs";
 import path from "path";
-import { fileURLToPath } from "url";
 import type { Product, Response } from "../definitions";
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const productsPath = process.env.REACT_PRODUCTS_DB_PATH;
-const PRODUCT_PATH = path.resolve(__dirname, productsPath as string);
+
+let filePath = process.env.REACT_GLOBAL_PATH_FOR_DB as string;
+filePath += process.env.REACT_PRODUCTS_DB_PATH;
+
+const PRODUCT_PATH = path.resolve(process.cwd(), filePath);
 
 class ProductService {
   /**---------- Get Products ---------- */

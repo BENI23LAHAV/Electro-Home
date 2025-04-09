@@ -4,7 +4,7 @@ import { Link } from "react-router";
 function HeadPage() {
   return (
     <div
-      className=" h-[85vh] mx-auto  p-10 
+      className=" h-[85vh] mx-auto  p-10  rounded-md
   // bg-[linear-gradient(45deg,rgba(43,156,216,0.03),rgba(92,209,164,0.05))]
   bg-[#f4f8fb]
        flex flex-row justify-between items-center">
@@ -54,7 +54,7 @@ function HomeImage(props: any) {
     <img
       src={image1}
       alt="future tech"
-      className="w-[500px] h-[400px] object-fill animate-[float_6s_ease-in-out_infinite] rounded-sm
+      className="w-[500px] h-[400px] object-fill animate-[float_6s_ease-in-out_infinite] rounded-sm z-[0]
   "
     />
   );
@@ -64,7 +64,7 @@ function HomeButton(props: any) {
   return (
     <button
       className="px-4 py-2 bg-[linear-gradient(45deg,rgba(43,156,216,0.03),rgba(92,209,164,0.05))]
-        border-[var(--color-primary)] border-2
+        border-[var(--color-primary)] border-[2.5px]
         text-[var(--color-primary)] rounded-full hover:bg-gradient-to-r hover:from-[var(--color-primary)]
         hover:to-[var(--color-primary)] hover:text-white
         hover:translate-y-[-5px] hover:duration-300 hover:shadow-[0_10px_20px_rgba(110,0,255,0.2)]">
