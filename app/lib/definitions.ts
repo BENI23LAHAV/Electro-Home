@@ -30,4 +30,6 @@ interface Response {
   message: string;
   data: unknown;
 }
-export type { Category, Product, User, Response };
+type ATagProps = { text: string };
+
+export type { Category, Product, User, Response, ATagProps };

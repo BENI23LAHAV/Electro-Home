@@ -16,9 +16,9 @@ export async function loader() {
 
 export default function BodyPage() {
   return (
-    <div className="">
+    <div className="mb-15">
       <Title />
-      <ProductToolbar />
+
       <Categories />
       <div className="flex flex-row justify-between mt-10">
         <PriceSlider />
@@ -47,11 +47,6 @@ function Title() {
 "></span>
     </>
   );
-}
-
-function ProductToolbar() {
-  //   console.log(categories);
-  return <></>;
 }
 
 function Categories(props: any) {

@@ -11,7 +11,6 @@ export default function Home() {
     <div className="w-[90%] mx-auto ">
       <HeadPage />
       <BodyPage />
-      <Space />
     </div>
   );
 }

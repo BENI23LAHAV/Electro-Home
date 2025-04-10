@@ -1,7 +1,8 @@
 import React from "react";
 import "app/app.css";
 import { Link, NavLink, Outlet, useNavigate } from "react-router";
-const Navbar = () => {
+
+export default function Navbar() {
   return (
     <>
       <div className="h-20 w-full fixed flex flex-row justify-between my-0 mx-auto items-center shadow-[var(--shadow-dropdown)] bg-white z-30">
@@ -25,36 +26,62 @@ const Navbar = () => {
           )}
         </ul>
       </div>
-      <Outlet />
     </>
   );
-};
+}
 
-export default Navbar;
-
-function Logo(props: any) {
+// export function Logo(props: any) {
+//   return (
+//     <Link to={"/"}>
+//       <div className="flex items-center gap-2 text-3xl font-extrabold bg-gradient-to-r from-[#2b9cd8] to-[#5cd1a4] text-transparent bg-clip-text mr-10 hover:cursor-pointer z-100">
+//         <svg
+//           className="w-8 h-8 text-[#2b9cd8]"
+//           viewBox="0 0 24 24"
+//           fill="none"
+//           xmlns="http://www.w3.org/2000/svg">
+//           <path
+//             d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+//             stroke="currentColor"
+//             strokeWidth="2"
+//           />
+//           <path d="M5 12H19" stroke="currentColor" strokeWidth="2" />
+//           <path d="M12 5V19" stroke="currentColor" strokeWidth="2" />
+//         </svg>{" "}
+//         אלקטרו home
+//       </div>
+//     </Link>
+//   );
+// }
+export function Logo({
+  showIcon = true,
+  width = "auto",
+  height = "auto",
+}: LogoProps) {
   return (
     <Link to={"/"}>
-      <div className="flex items-center gap-2 text-3xl font-extrabold bg-gradient-to-r from-[#2b9cd8] to-[#5cd1a4] text-transparent bg-clip-text mr-10 hover:cursor-pointer z-100">
-        <svg
-          className="w-8 h-8 text-[#2b9cd8]"
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg">
-          <path
-            d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
-            stroke="currentColor"
-            strokeWidth="2"
-          />
-          <path d="M5 12H19" stroke="currentColor" strokeWidth="2" />
-          <path d="M12 5V19" stroke="currentColor" strokeWidth="2" />
-        </svg>{" "}
+      <div
+        className="flex items-center gap-2 text-3xl font-extrabold bg-gradient-to-r from-[#2b9cd8] to-[#5cd1a4] text-transparent bg-clip-text mr-10 hover:cursor-pointer z-100"
+        style={{ width, height }}>
+        {showIcon && (
+          <svg
+            className="w-8 h-8 text-[#2b9cd8]"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+              stroke="currentColor"
+              strokeWidth="2"
+            />
+            <path d="M5 12H19" stroke="currentColor" strokeWidth="2" />
+            <path d="M12 5V19" stroke="currentColor" strokeWidth="2" />
+          </svg>
+        )}
         אלקטרו home
       </div>
     </Link>
   );
 }
-
 export function Soon(props: any) {
   return (
     <span
