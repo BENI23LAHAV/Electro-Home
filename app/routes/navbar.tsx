@@ -5,7 +5,7 @@ import { Link, NavLink, Outlet, useNavigate } from "react-router";
 export default function Navbar() {
   return (
     <>
-      <div className="h-20 w-full fixed flex flex-row justify-between my-0 mx-auto items-center shadow-[var(--shadow-dropdown)] bg-white z-30">
+      <div className="h-20 w-full fixed top-0 flex flex-row justify-between my-0 mx-auto items-center shadow-[var(--shadow-dropdown)] bg-white z-30">
         <Logo className="m-0 p-0 " />
 
         <ul className="flex flex-row w-[30%] justify-between ml-10 ">

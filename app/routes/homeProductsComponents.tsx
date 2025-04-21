@@ -39,7 +39,7 @@ export default function BodyPage() {
 function Title() {
   return (
     <>
-      <h1 className="text-[2.5rem] text-center  font-bold font-monospace text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-dark-light)] to-[var(--color-dark-light)] mt-16">
+      <h1 className="text-[2.5rem] text-center  font-bold font-monospace text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-dark-light)] to-[var(--color-dark-light)] mt-16 pt-10">
         המוצרים החמים שלנו{" "}
       </h1>
       <span
