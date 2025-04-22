@@ -150,9 +150,9 @@ function LargeImage({ url }: { url: string }) {
       <img
         src={url}
         alt="current product"
-        className="w-full h-full object-cover transition-transform duration-300 ease-out hover:scale-150"
+        className={`w-full h-full object-cover transition-transform duration-300 ease-out hover:scale-150`}
         style={{
-          transform: ` translate(${offset.x}px, ${offset.y}px)`,
+          transform: `translate(${offset.x}px, ${offset.y}px)`,
         }}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
@@ -213,7 +213,7 @@ function Specification({
           <div
             key={item[0]}
             className="my-2 flex flex-row justify-between w-full text-md">
-            <span className="font-semibold text-[var(--color-dark)]">
+            <span className="font-semibold text-lg text-[var(--color-dark)]">
               {item[0]}
             </span>
             <span className="text-[var(--color-gray-500)]">
@@ -224,7 +224,7 @@ function Specification({
                 : (item[1] as string)}
             </span>
           </div>
-          <span className="w-full h-[1px] bg-[var(--color-gray-200)]"></span>
+          <span className="w-full h-[1px] block bg-[var(--color-gray-200)]"></span>
         </>
       ))}
     </>

@@ -1,25 +1,19 @@
-import type { Category, Response } from "../lib/definitions";
+import type { P } from "node_modules/react-router/dist/development/route-data-BL8ToWby.mjs";
+import type { Category, Product, Response } from "../lib/definitions";
 import { useEffect, useRef, useState } from "react";
 // import CategoriesService from "../lib/services/categoriesService";
 
-export async function loader() {
-  let categories;
-  try {
-    // categories = (await CategoriesService.getCategories()) as Response;
-    // console.log(categories.message, categories.success);
-    // console.log(categories.data);
-    // console.log("here: at categories loader");
-  } catch (err) {
-    console.log(err);
-  }
+interface BodyPageProps {
+  categories: string[];
+  products: Product[];
 }
 
-export default function BodyPage() {
+export function BodyPage(props: BodyPageProps) {
   return (
     <div className="mb-15">
       <Title />
 
-      <Categories />
+      <Categories categories={props.categories} />
       <div className="flex flex-row justify-between mt-10">
         <PriceSlider />
         <label
@@ -31,7 +25,7 @@ export default function BodyPage() {
         <SortBy />
       </div>
       <SearchInput />
-      <ProductsGrid />
+      <ProductsGrid products={props.products} />
     </div>
   );
 }
@@ -49,11 +43,14 @@ function Title() {
   );
 }
 
-function Categories(props: any) {
-  const categories = ["סמארטפונים", "מחשבים", "טלוויזיות ומסכים"];
+function Categories({ categories }: { categories: string[] }) {
+  // const categories = ["סמארטפונים", "מחשבים", "טלוויזיות ומסכים"];
+  const categorys = categories || [];
+  // console.log("here: ", categorys);
+
   return (
     <div className="flex flex-row justify-center mt-10 ">
-      {categories.map((item, k) => (
+      {categorys.map((item, k) => (
         <Button key={k}>{item}</Button>
       ))}
     </div>
@@ -210,23 +207,25 @@ function SearchInput(props: any) {
     </div>
   );
 }
-
-const ProductsGrid: React.FC = () => {
+interface ProductsGridProps {
+  products: Product[];
+}
+function ProductsGrid(props: ProductsGridProps) {
   const items = Array.from({ length: 12 }, (_, i) => `פריט ${i + 1}`);
-
+  const products = props.products as Product[];
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-7 p-4 mt-10">
-      {items.map((item, k) => (
+      {products.map((item, k) => (
         <div
           key={k}
           className="text-right bg-white hover:bg-[var(--color-light)] duration-300 h-90 overflow-hidden shadow-[var(--shadow-card)] rounded-md ">
           <div className="min-w-full max-h-40 min-h-40 overflow-hidden relative">
             <img
-              src="https://d3m9l0v76dty0.cloudfront.net/system/photos/13443016/original/6c17d7d713664290986a2e65c7492633.jpg"
+              src={item.images[0]}
               alt=""
               className="w-full h-full  object-cover hover:transform-content hover:scale-[1.1] transition-[var(--transition-default)]"
             />
-            {k % 3 === 0 && (
+            {item.discount > 0 && (
               <span className=" absolute top-5 right-5  bg-[var(--color-secondary)] rounded-full px-2 py-1 text-[12px] font-semibold text-[var(--color-dark)]">
                 במבצע!
               </span>
@@ -234,16 +233,14 @@ const ProductsGrid: React.FC = () => {
           </div>{" "}
           <h2 className="text-lg font-bold  mr-4 text-[var(--color-dark)]">
             {" "}
-            {item}
+            {item.name}
           </h2>
           <h3 className="max-h-28 min-h-28 overflow-hidden my-2 mx-4 text-md text-[var(--color-dark-light)]">
-            some description... some description... some description... some
-            description... some description... some description...
-            description...{" "}
+            {item.description}
           </h3>
           <div className="flex flex-row justify-between px-5">
             <p className="text-[var(--color-primary-light)] text-xl font-bold">
-              3000 ₪
+              {item.price} ₪
             </p>
             <button
               className="bg-[var(--color-primary-light)] rounded-full px-2 py-1 text-white hover:bg-[var(--color-secondary)] transition-[var(--transition-default)]
@@ -255,4 +252,4 @@ const ProductsGrid: React.FC = () => {
       ))}
     </div>
   );
-};
+}

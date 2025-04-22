@@ -52,6 +52,27 @@ class ProductService {
       };
     }
   }
+  static async getProductsWithImages(): Promise<Response> {
+    try {
+      const data = fs.readFileSync(PRODUCT_PATH, "utf-8");
+      let res = JSON.parse(data) as Product[];
+      res = res.filter((product) => product.images.length > 2);
+      const success = res !== undefined || res !== null ? true : false;
+      return {
+        success,
+        message: `${
+          success ? "Products fetched successfully" : "Products not found"
+        }`,
+        data: res,
+      };
+    } catch (err) {
+      return {
+        success: false,
+        message: err as string,
+        data: null,
+      };
+    }
+  }
 }
 
 export default ProductService;

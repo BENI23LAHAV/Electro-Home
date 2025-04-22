@@ -1,6 +1,7 @@
 import image1 from "app/lib/images/image1.jpeg";
 import { Soon } from "./navbar";
 import { Link } from "react-router";
+import type { Category } from "~/lib/definitions";
 function HeadPage() {
   return (
     <div
