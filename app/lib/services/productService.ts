@@ -52,6 +52,35 @@ class ProductService {
       };
     }
   }
+  static async getProductsByCategory(category: string): Promise<Response> {
+    console.log("category at getProductsByCategory", category);
+
+    try {
+      const res = await this.getProducts();
+      const success = res.success;
+      const data = res.data as Product[];
+
+      const dataFiltered =
+        category === "all"
+          ? data
+          : data.filter((product) => product.categories.includes(category));
+
+      return {
+        success,
+        message: success
+          ? "Products fetched successfully"
+          : "Products not found",
+        data: dataFiltered,
+      };
+    } catch (err) {
+      return {
+        success: false,
+        message: err as string,
+        data: null,
+      };
+    }
+  }
+
   static async getProductsWithImages(): Promise<Response> {
     try {
       const data = fs.readFileSync(PRODUCT_PATH, "utf-8");

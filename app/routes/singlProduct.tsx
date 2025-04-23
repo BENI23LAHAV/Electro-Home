@@ -14,12 +14,27 @@ import {
   ClockComponent,
   LocationComponent,
 } from "./singlProductComponents";
+import type { Route } from "../+types/root";
+import ProductService from "~/lib/services/productService";
 
-export default function SingleProduct() {
-  const [currentImage, setCurrentImage] = useState<string>(
-    exampleProduct.images[0]
-  );
+export async function loader({ params }: Route.LoaderArgs) {
+  return (await ProductService.getProductById(Number(params.id))).data;
+}
+
+export default function SingleProduct({ loaderData }: Route.ComponentProps) {
+  const product = loaderData as Product | undefined;
+  console.log("product", product);
+  if (!product) {
+    return (
+      <div className="w-[90%] mx-auto mt-20 flex flex-col items-center justify-center">
+        <h1 className="text-5xl font-bold">המוצר לא נמצא</h1>
+      </div>
+    );
+  }
+  const [currentImage, setCurrentImage] = useState<string>(product.images[0]);
   const [quantity, setQuantity] = useState<number>(1);
+  const [stock, setStock] = useState<number>(product.amount);
+
   return (
     <div className="mt-20 flex flex-row justify-between mr-[2%]">
       <div className="w-1/2 ">
@@ -27,7 +42,7 @@ export default function SingleProduct() {
           <LargeImage url={currentImage} />
         </div>
         <div className="flex flex-row justify-start gap-2 my-5">
-          {exampleProduct.images.map((item, k) => (
+          {product.images.map((item, k) => (
             <SmallImage
               key={k}
               url={item}
@@ -40,21 +55,18 @@ export default function SingleProduct() {
       <div className="mt-5 flex flex-col items-start w-1/2">
         <div className="w-[90%] mx-auto">
           <div className="">
-            {" "}
+            {""}
             {/* <New /> */}
-            {exampleProduct.discount > 0 && <Sale />}
+            {product.discount > 0 && <Sale />}
           </div>
           <h1 className="text-5xl font-bold">{exampleProduct.name}</h1>
           <span className="text-[var(--color-gray-500)] flex flex-row gap-5 mt-2 py-2">
-            {/* <StarRating rating={Math.floor(Math.random() * 10 + 1) / 2} />
-          {Math.floor(Math.random() * 30 + 1) + " ביקורות"} */}
+            <StarRating rating={product.rating} />
+            {product.reviews + " ביקורות"}
           </span>
 
-          <FinalPrice
-            price={exampleProduct.price}
-            discount={exampleProduct.discount}
-          />
-          <EnterByDot>{exampleProduct.description}</EnterByDot>
+          <FinalPrice price={product.price} discount={product.discount} />
+          <EnterByDot>{product.description}</EnterByDot>
           <Specification specification={exampleProduct.specifications} />
           <Quantity quantity={quantity} setQuantity={setQuantity} />
 

@@ -2,8 +2,13 @@ interface Category {
   id: string;
   name: string;
   description: string;
+  specialties: Specialty[];
 }
-
+interface Specialty {
+  id: string;
+  name: string;
+  values: string[];
+}
 interface Product {
   id: number;
   name: string;
@@ -13,6 +18,8 @@ interface Product {
   discount: number;
   categories: string[];
   amount: number;
+  rating: number;
+  reviews: number;
 }
 interface User {
   id: number;
@@ -32,4 +39,19 @@ interface Response {
 }
 type ATagProps = { text: string };
 
-export type { Category, Product, User, Response, ATagProps };
+interface BodyPageProps {
+  categories: Category[];
+  products: Product[];
+}
+interface ProductsGridProps {
+  products: Product[];
+}
+export type {
+  Category,
+  Product,
+  User,
+  Response,
+  ATagProps,
+  BodyPageProps,
+  ProductsGridProps,
+};
