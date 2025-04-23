@@ -46,6 +46,8 @@ interface BodyPageProps {
 interface ProductsGridProps {
   products: Product[];
 }
+
+type SortBy = "pop" | "htl" | "lth";
 export type {
   Category,
   Product,
@@ -54,4 +56,5 @@ export type {
   ATagProps,
   BodyPageProps,
   ProductsGridProps,
+  SortBy,
 };

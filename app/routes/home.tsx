@@ -11,6 +11,7 @@ import type {
   Product,
   ProductsGridProps,
   Response,
+  SortBy,
 } from "../lib/definitions";
 import { Form, NavLink, ScrollRestoration, useSubmit } from "react-router";
 import { useEffect, useRef, useState } from "react";
@@ -21,10 +22,8 @@ export async function loader({ params, request }: Route.LoaderArgs) {
   const price = url.searchParams.get("price");
   const sortBy = url.searchParams.get("sortBy");
   const search = url.searchParams.get("search");
-  console.log("category", category);
-  console.log("price", price);
-  console.log("sortBy", sortBy);
-  console.log("search", search);
+
+  console.log("sortBy at loader", sortBy);
 
   const categories = await CategoriesService.getCategories();
   if (!categories.success) {
@@ -32,20 +31,22 @@ export async function loader({ params, request }: Route.LoaderArgs) {
   }
   let products: Response;
 
-  const withoutParams = category;
+  const withoutCategory = category;
 
-  if (!withoutParams) {
+  if (!withoutCategory) {
     products = await ProductService.getProductsWithImages();
     if (!products.success) {
       throw new Response("Products not found", { status: 404 });
     }
   } else {
-    console.log("withoutParams", !withoutParams);
-
     products = await ProductService.getProductsByCategory(category as string);
-    // console.log("products", products);
   }
-
+  if (sortBy) {
+    products.data = orderBy(products.data as Product[], sortBy as SortBy);
+  }
+  if (price) {
+    products.data = filterByPrice(products.data as Product[], Number(price));
+  }
   const res = {
     categories: (await categories.data) as Category[],
     products: (await products.data) as Product[],
@@ -53,6 +54,22 @@ export async function loader({ params, request }: Route.LoaderArgs) {
   return res;
 }
 export async function action({ request }: Route.ActionArgs) {}
+
+function orderBy(products: Product[], sortBy: SortBy): Product[] {
+  switch (sortBy) {
+    case "pop":
+      return products.sort((a, b) => b.rating - a.rating);
+    case "htl":
+      return products.sort((a, b) => b.price - a.price);
+    case "lth":
+      return products.sort((a, b) => a.price - b.price);
+    default:
+      return products;
+  }
+}
+function filterByPrice(products: Product[], price: number) {
+  return products.filter((product) => product.price <= price);
+}
 
 export default function Home({ loaderData }: Route.ComponentProps) {
   const categories = loaderData.categories as Category[];
@@ -157,7 +174,7 @@ export function BodyPage(props: BodyPageProps) {
           <PriceSlider handleSubmit={handleSubmit} />
           <label
             htmlFor="sort-by"
-            className="mt-2 mr-50 text-xl text-[var(--color-dark)]">
+            className="mt-2 mr-20 text-xl text-[var(--color-dark)]">
             מיון לפי:
           </label>
 
@@ -358,7 +375,17 @@ function SortBy(props: any) {
             clicked === k ? clickedStyle : "bg-white text-[var(--color-dark)]"
           } font-medium  px-3 py-2 hover:bg-[var(--color-primary)] hover:text-white hover:cursor-pointer`}
           key={k}
-          onClick={() => setClicked(k)}>
+          onClick={(e) => {
+            e.preventDefault();
+
+            const input = e.currentTarget.form?.querySelector(
+              "input[name='sortBy']"
+            ) as HTMLInputElement;
+            if (input) {
+              input.value = item.id;
+            }
+            e.currentTarget.form?.requestSubmit();
+          }}>
           {item.name}
         </button>
       ))}

@@ -52,9 +52,8 @@ class ProductService {
       };
     }
   }
+  //It gets the products by category
   static async getProductsByCategory(category: string): Promise<Response> {
-    console.log("category at getProductsByCategory", category);
-
     try {
       const res = await this.getProducts();
       const success = res.success;
