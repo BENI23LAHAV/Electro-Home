@@ -14,7 +14,15 @@
     "categories": ["televisions"],
     "amount": 15,
     "rating": 4.0,
-    "reviews": 7
+    "reviews": 7,
+    "specifications": {
+      "screen_size": "55 אינץ'",
+      "resolution": "4K Ultra HD",
+      "panel_type": "QLED",
+      "hdmi_ports": "3 יציאות",
+      "smart_features": "Tizen",
+      "bluetooth": "יש"
+    }
   },
   {
     "id": 1002,
@@ -29,7 +37,15 @@
     "categories": ["televisions"],
     "amount": 8,
     "rating": 4.9,
-    "reviews": 21
+    "reviews": 21,
+    "specifications": {
+      "screen_size": "65 אינץ'",
+      "resolution": "4K Ultra HD",
+      "panel_type": "OLED",
+      "hdmi_ports": "4 יציאות",
+      "smart_features": "webOS",
+      "bluetooth": "יש"
+    }
   },
   {
     "id": 1003,
@@ -44,7 +60,15 @@
     "categories": ["televisions"],
     "amount": 12,
     "rating": 3.9,
-    "reviews": 8
+    "reviews": 8,
+    "specifications": {
+      "screen_size": "50 אינץ'",
+      "resolution": "4K Ultra HD",
+      "panel_type": "LED",
+      "hdmi_ports": "3 יציאות",
+      "smart_features": "Android TV",
+      "bluetooth": "יש"
+    }
   },
   {
     "id": 1004,
@@ -59,7 +83,15 @@
     "categories": ["televisions"],
     "amount": 10,
     "rating": 3.6,
-    "reviews": 15
+    "reviews": 15,
+    "specifications": {
+      "screen_size": "58 אינץ'",
+      "resolution": "4K Ultra HD",
+      "panel_type": "LED",
+      "hdmi_ports": "3 יציאות",
+      "smart_features": "Android TV",
+      "bluetooth": "יש"
+    }
   },
   {
     "id": 1005,
@@ -74,7 +106,15 @@
     "categories": ["televisions"],
     "amount": 7,
     "rating": 4.3,
-    "reviews": 19
+    "reviews": 19,
+    "specifications": {
+      "screen_size": "43 אינץ'",
+      "resolution": "4K Ultra HD",
+      "panel_type": "QLED",
+      "hdmi_ports": "4 יציאות",
+      "smart_features": "Tizen",
+      "bluetooth": "יש"
+    }
   },
   {
     "id": 1006,
@@ -89,7 +129,15 @@
     "categories": ["televisions"],
     "amount": 14,
     "rating": 3.8,
-    "reviews": 12
+    "reviews": 12,
+    "specifications": {
+      "screen_size": "65 אינץ'",
+      "resolution": "4K Ultra HD",
+      "panel_type": "QLED",
+      "hdmi_ports": "3 יציאות",
+      "smart_features": "Android TV",
+      "bluetooth": "יש"
+    }
   },
   {
     "id": 1007,
@@ -104,7 +152,15 @@
     "categories": ["televisions"],
     "amount": 3,
     "rating": 4.2,
-    "reviews": 5
+    "reviews": 5,
+    "specifications": {
+      "screen_size": "100 אינץ'",
+      "resolution": "4K Ultra HD",
+      "panel_type": "LED",
+      "hdmi_ports": "3 יציאות",
+      "smart_features": "Android TV",
+      "bluetooth": "יש"
+    }
   },
   {
     "id": 1008,
@@ -119,7 +175,15 @@
     "categories": ["televisions"],
     "amount": 6,
     "rating": 4.1,
-    "reviews": 14
+    "reviews": 14,
+    "specifications": {
+      "screen_size": "75 אינץ'",
+      "resolution": "4K Ultra HD",
+      "panel_type": "LED",
+      "hdmi_ports": "4 יציאות",
+      "smart_features": "webOS",
+      "bluetooth": "יש"
+    }
   },
   {
     "id": 1009,
@@ -134,7 +198,15 @@
     "categories": ["televisions"],
     "amount": 2,
     "rating": 4.8,
-    "reviews": 9
+    "reviews": 9,
+    "specifications": {
+      "screen_size": "77 אינץ'",
+      "resolution": "4K Ultra HD",
+      "panel_type": "OLED",
+      "hdmi_ports": "4 יציאות",
+      "smart_features": "Android TV",
+      "bluetooth": "יש"
+    }
   },
   {
     "id": 2001,
@@ -151,7 +223,15 @@
     "categories": ["computers"],
     "amount": 10,
     "rating": 4.7,
-    "reviews": 24
+    "reviews": 24,
+    "specifications": {
+      "processor": "Apple M2",
+      "ram": "16GB",
+      "storage": "512GB SSD",
+      "graphics_card": "Apple GPU",
+      "operating_system": "macOS",
+      "connectivity_ports": ["USB-C", "Thunderbolt"]
+    }
   },
   {
     "id": 2002,
@@ -166,7 +246,15 @@
     "categories": ["computers"],
     "amount": 7,
     "rating": 4.3,
-    "reviews": 16
+    "reviews": 16,
+    "specifications": {
+      "processor": "Intel Core i7",
+      "ram": "16GB",
+      "storage": "512GB SSD",
+      "graphics_card": "NVIDIA GeForce RTX",
+      "operating_system": "Windows 11",
+      "connectivity_ports": ["USB-C", "USB 3.0", "HDMI"]
+    }
   },
   {
     "id": 2003,
@@ -181,7 +269,15 @@
     "categories": ["computers"],
     "amount": 5,
     "rating": 4.5,
-    "reviews": 13
+    "reviews": 13,
+    "specifications": {
+      "processor": "AMD Ryzen 9",
+      "ram": "32GB",
+      "storage": "2TB SSD",
+      "graphics_card": "NVIDIA GeForce RTX",
+      "operating_system": "Windows 11",
+      "connectivity_ports": ["USB-C", "USB 3.0", "HDMI", "DisplayPort"]
+    }
   },
   {
     "id": 2004,
@@ -196,7 +292,21 @@
     "categories": ["computers", "accessories"],
     "amount": 20,
     "rating": 4.2,
-    "reviews": 18
+    "reviews": 18,
+    "specifications": {
+      "processor": null,
+      "ram": null,
+      "storage": null,
+      "graphics_card": null,
+      "operating_system": null,
+      "connectivity_ports": ["HDMI", "DisplayPort"],
+      "compatibility_accessory": "מחשבי Windows",
+      "material": "פלסטיק",
+      "connection_type": ["HDMI", "DisplayPort"],
+      "warranty": "שנתיים",
+      "color_options": "שחור",
+      "durability": "עמיד לשריטות"
+    }
   },
   {
     "id": 2005,
@@ -211,7 +321,15 @@
     "categories": ["computers"],
     "amount": 12,
     "rating": 4.1,
-    "reviews": 14
+    "reviews": 14,
+    "specifications": {
+      "processor": "Intel Core i7",
+      "ram": "16GB",
+      "storage": "1TB SSD",
+      "graphics_card": "משולב",
+      "operating_system": "Windows 11",
+      "connectivity_ports": ["USB-C", "USB 3.0", "HDMI"]
+    }
   },
   {
     "id": 2006,
@@ -226,7 +344,15 @@
     "categories": ["computers"],
     "amount": 15,
     "rating": 4.0,
-    "reviews": 22
+    "reviews": 22,
+    "specifications": {
+      "processor": "Intel Core i5",
+      "ram": "16GB",
+      "storage": "512GB SSD",
+      "graphics_card": "משולב",
+      "operating_system": "Windows 11",
+      "connectivity_ports": ["USB-C", "USB 3.0", "HDMI", "Thunderbolt"]
+    }
   },
   {
     "id": 2007,
@@ -241,7 +367,15 @@
     "categories": ["computers"],
     "amount": 8,
     "rating": 3.5,
-    "reviews": 10
+    "reviews": 10,
+    "specifications": {
+      "processor": "Intel Core i5",
+      "ram": "8GB",
+      "storage": "512GB SSD",
+      "graphics_card": "משולב",
+      "operating_system": "Windows 11",
+      "connectivity_ports": ["USB-C", "USB 3.0", "HDMI"]
+    }
   },
   {
     "id": 2008,
@@ -256,7 +390,15 @@
     "categories": ["computers"],
     "amount": 14,
     "rating": 4.2,
-    "reviews": 17
+    "reviews": 17,
+    "specifications": {
+      "processor": "Intel Core i7",
+      "ram": "16GB",
+      "storage": "1TB SSD",
+      "graphics_card": "משולב",
+      "operating_system": "Windows 11",
+      "connectivity_ports": ["USB-C", "USB 3.0", "HDMI"]
+    }
   },
   {
     "id": 2009,
@@ -271,7 +413,21 @@
     "categories": ["computers", "accessories"],
     "amount": 10,
     "rating": 4.5,
-    "reviews": 11
+    "reviews": 11,
+    "specifications": {
+      "processor": null,
+      "ram": null,
+      "storage": null,
+      "graphics_card": null,
+      "operating_system": null,
+      "connectivity_ports": ["HDMI", "DisplayPort", "USB-C"],
+      "compatibility_accessory": ["מחשבי Windows", "מחשבי Mac"],
+      "material": "פלסטיק",
+      "connection_type": ["HDMI", "DisplayPort", "USB-C"],
+      "warranty": "שנתיים",
+      "color_options": "שחור",
+      "durability": "עמיד לשריטות"
+    }
   },
   {
     "id": 2010,
@@ -286,7 +442,15 @@
     "categories": ["computers"],
     "amount": 5,
     "rating": 4.9,
-    "reviews": 15
+    "reviews": 15,
+    "specifications": {
+      "processor": "Apple M2",
+      "ram": "64GB",
+      "storage": "2TB SSD",
+      "graphics_card": "Apple GPU",
+      "operating_system": "macOS",
+      "connectivity_ports": ["USB-C", "Thunderbolt", "HDMI"]
+    }
   },
   {
     "id": 2011,
@@ -301,7 +465,15 @@
     "categories": ["computers"],
     "amount": 3,
     "rating": 4.7,
-    "reviews": 8
+    "reviews": 8,
+    "specifications": {
+      "processor": "Intel Core i9",
+      "ram": "32GB",
+      "storage": "2TB SSD",
+      "graphics_card": "NVIDIA GeForce RTX",
+      "operating_system": "Windows 11",
+      "connectivity_ports": ["USB-C", "USB 3.0", "HDMI", "DisplayPort"]
+    }
   },
   {
     "id": 2012,
@@ -316,7 +488,21 @@
     "categories": ["computers", "accessories"],
     "amount": 6,
     "rating": 4.6,
-    "reviews": 12
+    "reviews": 12,
+    "specifications": {
+      "processor": null,
+      "ram": null,
+      "storage": null,
+      "graphics_card": null,
+      "operating_system": null,
+      "connectivity_ports": ["HDMI", "DisplayPort", "USB-C"],
+      "compatibility_accessory": ["מחשבי Windows", "מחשבי Mac"],
+      "material": "פלסטיק",
+      "connection_type": ["HDMI", "DisplayPort"],
+      "warranty": "שנתיים",
+      "color_options": "שחור",
+      "durability": "עמיד לשריטות"
+    }
   },
   {
     "id": 3001,
@@ -331,7 +517,15 @@
     "categories": ["smartphones"],
     "amount": 25,
     "rating": 4.8,
-    "reviews": 26
+    "reviews": 26,
+    "specifications": {
+      "screen_size_phone": "6.7 אינץ'",
+      "camera": "מערך מצלמות משולש",
+      "battery_capacity": "4000mAh",
+      "storage_phone": "256GB",
+      "processor_phone": "Apple A-series",
+      "5g_support": "כן"
+    }
   },
   {
     "id": 3002,
@@ -348,7 +542,15 @@
     "categories": ["smartphones"],
     "amount": 18,
     "rating": 4.7,
-    "reviews": 23
+    "reviews": 23,
+    "specifications": {
+      "screen_size_phone": "6.9 אינץ'",
+      "camera": "מערך מצלמות משולש",
+      "battery_capacity": "5000mAh",
+      "storage_phone": "512GB",
+      "processor_phone": "Exynos",
+      "5g_support": "כן"
+    }
   },
   {
     "id": 3003,
@@ -363,7 +565,15 @@
     "categories": ["smartphones"],
     "amount": 30,
     "rating": 4.1,
-    "reviews": 19
+    "reviews": 19,
+    "specifications": {
+      "screen_size_phone": "6.5 אינץ'",
+      "camera": "108MP",
+      "battery_capacity": "5000mAh",
+      "storage_phone": "256GB",
+      "processor_phone": "Snapdragon",
+      "5g_support": "כן"
+    }
   },
   {
     "id": 3004,
@@ -378,7 +588,15 @@
     "categories": ["smartphones"],
     "amount": 20,
     "rating": 4.6,
-    "reviews": 17
+    "reviews": 17,
+    "specifications": {
+      "screen_size_phone": "6.7 אינץ'",
+      "camera": "מערך מצלמות משולש",
+      "battery_capacity": "5000mAh",
+      "storage_phone": "256GB",
+      "processor_phone": "Google Tensor",
+      "5g_support": "כן"
+    }
   },
   {
     "id": 3005,
@@ -393,7 +611,15 @@
     "categories": ["smartphones"],
     "amount": 15,
     "rating": 4.3,
-    "reviews": 14
+    "reviews": 14,
+    "specifications": {
+      "screen_size_phone": "6.7 אינץ'",
+      "camera": "מערך מצלמות משולש",
+      "battery_capacity": "5000mAh",
+      "storage_phone": "256GB",
+      "processor_phone": "Snapdragon",
+      "5g_support": "כן"
+    }
   },
   {
     "id": 3006,
@@ -408,7 +634,15 @@
     "categories": ["smartphones"],
     "amount": 10,
     "rating": 4.4,
-    "reviews": 22
+    "reviews": 22,
+    "specifications": {
+      "screen_size_phone": "6.9 אינץ'",
+      "camera": "מערך מצלמות משולש",
+      "battery_capacity": "4000mAh",
+      "storage_phone": "512GB",
+      "processor_phone": "Snapdragon",
+      "5g_support": "כן"
+    }
   },
   {
     "id": 3007,
@@ -423,7 +657,15 @@
     "categories": ["smartphones"],
     "amount": 35,
     "rating": 3.9,
-    "reviews": 27
+    "reviews": 27,
+    "specifications": {
+      "screen_size_phone": "5.5 אינץ'",
+      "camera": "12MP",
+      "battery_capacity": "3000mAh",
+      "storage_phone": "128GB",
+      "processor_phone": "Apple A-series",
+      "5g_support": "כן"
+    }
   },
   {
     "id": 3008,
@@ -438,7 +680,15 @@
     "categories": ["smartphones"],
     "amount": 40,
     "rating": 3.7,
-    "reviews": 18
+    "reviews": 18,
+    "specifications": {
+      "screen_size_phone": "6.5 אינץ'",
+      "camera": "מערך מצלמות משולש",
+      "battery_capacity": "5000mAh",
+      "storage_phone": "128GB",
+      "processor_phone": "Exynos",
+      "5g_support": "כן"
+    }
   },
   {
     "id": 3009,
@@ -453,7 +703,15 @@
     "categories": ["smartphones"],
     "amount": 12,
     "rating": 4.0,
-    "reviews": 11
+    "reviews": 11,
+    "specifications": {
+      "screen_size_phone": "6.7 אינץ'",
+      "camera": "200MP",
+      "battery_capacity": "4000mAh",
+      "storage_phone": "256GB",
+      "processor_phone": "Snapdragon",
+      "5g_support": "כן"
+    }
   },
   {
     "id": 4001,
@@ -470,7 +728,21 @@
     "categories": ["audio", "accessories"],
     "amount": 40,
     "rating": 4.5,
-    "reviews": 25
+    "reviews": 25,
+    "specifications": {
+      "power_output": "10W",
+      "connectivity_audio": ["Bluetooth", "אלחוטי"],
+      "battery_life_audio": "עד 5 שעות",
+      "sound_quality": "Hi-Fi",
+      "noise_cancellation": "אקטיבי (ANC)",
+      "waterproof_rating_audio": "IPX4",
+      "compatibility_accessory": "iPhone",
+      "material": "פלסטיק",
+      "connection_type": "אלחוטי",
+      "warranty": "שנה",
+      "color_options": "לבן",
+      "durability": "עמיד למים"
+    }
   },
   {
     "id": 4002,
@@ -485,7 +757,21 @@
     "categories": ["audio", "gadgets"],
     "amount": 15,
     "rating": 4.3,
-    "reviews": 16
+    "reviews": 16,
+    "specifications": {
+      "power_output": "50W",
+      "connectivity_audio": ["WiFi", "Bluetooth", "אלחוטי"],
+      "battery_life_audio": "חיבור לחשמל בלבד",
+      "sound_quality": "סטריאו",
+      "noise_cancellation": "אין",
+      "waterproof_rating_audio": "אין",
+      "battery_life_gadget": "חיבור לחשמל בלבד",
+      "compatibility_gadget": "תאימות עם כל המכשירים",
+      "sensors": null,
+      "connectivity_gadget": ["WiFi", "Bluetooth"],
+      "water_resistance": "לא עמיד למים",
+      "special_features": "שליטה בבית חכם"
+    }
   },
   {
     "id": 4003,
@@ -500,7 +786,15 @@
     "categories": ["audio"],
     "amount": 8,
     "rating": 4.4,
-    "reviews": 13
+    "reviews": 13,
+    "specifications": {
+      "power_output": "100W",
+      "connectivity_audio": ["HDMI", "WiFi", "Bluetooth", "אלחוטי"],
+      "battery_life_audio": "חיבור לחשמל בלבד",
+      "sound_quality": "Dolby Atmos",
+      "noise_cancellation": "אין",
+      "waterproof_rating_audio": "אין"
+    }
   },
   {
     "id": 4004,
@@ -515,7 +809,21 @@
     "categories": ["audio", "accessories"],
     "amount": 22,
     "rating": 4.7,
-    "reviews": 24
+    "reviews": 24,
+    "specifications": {
+      "power_output": "10W",
+      "connectivity_audio": ["Bluetooth", "אלחוטי"],
+      "battery_life_audio": "עד 30 שעות",
+      "sound_quality": "Hi-Fi",
+      "noise_cancellation": "אקטיבי (ANC)",
+      "waterproof_rating_audio": "אין",
+      "compatibility_accessory": "כל המכשירים",
+      "material": "פלסטיק",
+      "connection_type": "Bluetooth",
+      "warranty": "שנתיים",
+      "color_options": "שחור",
+      "durability": "עמיד לשריטות"
+    }
   },
   {
     "id": 4005,
@@ -530,7 +838,15 @@
     "categories": ["audio"],
     "amount": 30,
     "rating": 4.2,
-    "reviews": 20
+    "reviews": 20,
+    "specifications": {
+      "power_output": "20W",
+      "connectivity_audio": ["Bluetooth", "אלחוטי"],
+      "battery_life_audio": "עד 10 שעות",
+      "sound_quality": "סטריאו",
+      "noise_cancellation": "אין",
+      "waterproof_rating_audio": "IPX7"
+    }
   },
   {
     "id": 4006,
@@ -545,7 +861,21 @@
     "categories": ["audio", "accessories"],
     "amount": 15,
     "rating": 4.6,
-    "reviews": 18
+    "reviews": 18,
+    "specifications": {
+      "power_output": "10W",
+      "connectivity_audio": ["Bluetooth", "אלחוטי"],
+      "battery_life_audio": "עד 30 שעות",
+      "sound_quality": "Hi-Fi",
+      "noise_cancellation": "אקטיבי (ANC)",
+      "waterproof_rating_audio": "אין",
+      "compatibility_accessory": "כל המכשירים",
+      "material": "פלסטיק",
+      "connection_type": "Bluetooth",
+      "warranty": "שנתיים",
+      "color_options": "שחור",
+      "durability": "עמיד לשריטות"
+    }
   },
   {
     "id": 4007,
@@ -560,7 +890,15 @@
     "categories": ["audio"],
     "amount": 10,
     "rating": 4.3,
-    "reviews": 12
+    "reviews": 12,
+    "specifications": {
+      "power_output": "100W",
+      "connectivity_audio": ["HDMI", "Bluetooth", "WiFi"],
+      "battery_life_audio": "חיבור לחשמל בלבד",
+      "sound_quality": "Hi-Fi",
+      "noise_cancellation": "אין",
+      "waterproof_rating_audio": "אין"
+    }
   },
   {
     "id": 4008,
@@ -575,7 +913,21 @@
     "categories": ["audio", "accessories"],
     "amount": 28,
     "rating": 4.1,
-    "reviews": 17
+    "reviews": 17,
+    "specifications": {
+      "power_output": "10W",
+      "connectivity_audio": ["חוטי"],
+      "battery_life_audio": "חיבור לחשמל בלבד",
+      "sound_quality": "סראונד",
+      "noise_cancellation": "פסיבי",
+      "waterproof_rating_audio": "אין",
+      "compatibility_accessory": ["מחשבי Windows", "מחשבי Mac"],
+      "material": "פלסטיק",
+      "connection_type": "USB-A",
+      "warranty": "שנתיים",
+      "color_options": "שחור",
+      "durability": "עמיד לשריטות"
+    }
   },
   {
     "id": 4009,
@@ -586,11 +938,19 @@
       "https://example.com/images/logitech-speakers-2.jpg"
     ],
     "price": 999,
-    "discount": 100,
+    "discount": 0,
     "categories": ["audio"],
     "amount": 14,
     "rating": 3.9,
-    "reviews": 11
+    "reviews": 11,
+    "specifications": {
+      "power_output": "200W+",
+      "connectivity_audio": ["חוטי", "AUX"],
+      "battery_life_audio": "חיבור לחשמל בלבד",
+      "sound_quality": "סראונד",
+      "noise_cancellation": "אין",
+      "waterproof_rating_audio": "אין"
+    }
   },
   {
     "id": 5001,
@@ -606,7 +966,21 @@
     "categories": ["gadgets", "accessories"],
     "amount": 25,
     "rating": 4.7,
-    "reviews": 21
+    "reviews": 21,
+    "specifications": {
+      "battery_life_gadget": "עד 3 ימים",
+      "compatibility_gadget": "iOS",
+      "sensors": ["דופק", "GPS", "מד צעדים", "מד חמצן בדם", "מד שינה"],
+      "connectivity_gadget": ["Bluetooth", "WiFi", "NFC"],
+      "water_resistance": "עמיד למים עד 30 מטר",
+      "special_features": ["מעקב כושר", "ניטור בריאות", "תמיכה בתשלומים"],
+      "compatibility_accessory": "iPhone",
+      "material": "אלומיניום",
+      "connection_type": "אלחוטי",
+      "warranty": "שנה",
+      "color_options": "מגוון צבעים",
+      "durability": ["עמיד למים", "עמיד לאבק"]
+    }
   },
   {
     "id": 5002,
@@ -621,7 +995,15 @@
     "categories": ["gadgets"],
     "amount": 10,
     "rating": 4.5,
-    "reviews": 16
+    "reviews": 16,
+    "specifications": {
+      "battery_life_gadget": "עד יום",
+      "compatibility_gadget": "תאימות עם כל המכשירים",
+      "sensors": null,
+      "connectivity_gadget": ["Bluetooth", "WiFi"],
+      "water_resistance": "לא עמיד למים",
+      "special_features": "מציאות מדומה"
+    }
   },
   {
     "id": 5003,
@@ -636,7 +1018,21 @@
     "categories": ["gadgets", "accessories"],
     "amount": 35,
     "rating": 4.0,
-    "reviews": 19
+    "reviews": 19,
+    "specifications": {
+      "battery_life_gadget": "עד שבוע",
+      "compatibility_gadget": ["Android", "iOS"],
+      "sensors": ["דופק", "GPS", "מד צעדים", "מד שינה"],
+      "connectivity_gadget": "Bluetooth",
+      "water_resistance": "עמיד למים עד 30 מטר",
+      "special_features": ["מעקב כושר", "ניטור בריאות"],
+      "compatibility_accessory": "כל המכשירים",
+      "material": "סיליקון",
+      "connection_type": "אלחוטי",
+      "warranty": "שנה",
+      "color_options": "מגוון צבעים",
+      "durability": "עמיד למים"
+    }
   },
   {
     "id": 5004,
@@ -651,7 +1047,21 @@
     "categories": ["gadgets", "accessories"],
     "amount": 12,
     "rating": 4.8,
-    "reviews": 14
+    "reviews": 14,
+    "specifications": {
+      "battery_life_gadget": "עד שבועיים",
+      "compatibility_gadget": ["Android", "iOS"],
+      "sensors": ["דופק", "GPS", "מד צעדים", "מד חמצן בדם", "מד שינה"],
+      "connectivity_gadget": ["Bluetooth", "WiFi"],
+      "water_resistance": "עמיד למים עד 30 מטר",
+      "special_features": ["מעקב כושר", "ניטור בריאות"],
+      "compatibility_accessory": "כל המכשירים",
+      "material": "מתכת",
+      "connection_type": "אלחוטי",
+      "warranty": "שנתיים",
+      "color_options": "שחור",
+      "durability": ["עמיד לנפילות", "עמיד למים", "עמיד לאבק"]
+    }
   },
   {
     "id": 5005,
@@ -666,7 +1076,15 @@
     "categories": ["gadgets"],
     "amount": 8,
     "rating": 4.6,
-    "reviews": 10
+    "reviews": 10,
+    "specifications": {
+      "battery_life_gadget": "עד יום",
+      "compatibility_gadget": ["Android", "iOS"],
+      "sensors": ["GPS"],
+      "connectivity_gadget": ["WiFi", "Bluetooth"],
+      "water_resistance": "לא עמיד למים",
+      "special_features": null
+    }
   },
   {
     "id": 5006,
@@ -681,7 +1099,21 @@
     "categories": ["gadgets", "accessories"],
     "amount": 18,
     "rating": 4.4,
-    "reviews": 17
+    "reviews": 17,
+    "specifications": {
+      "battery_life_gadget": "עד 3 ימים",
+      "compatibility_gadget": "Android",
+      "sensors": ["דופק", "GPS", "מד צעדים", "מד חמצן בדם", "מד שינה"],
+      "connectivity_gadget": ["Bluetooth", "WiFi", "NFC"],
+      "water_resistance": "עמיד למים עד 30 מטר",
+      "special_features": ["מעקב כושר", "ניטור בריאות", "תמיכה בתשלומים"],
+      "compatibility_accessory": "Android",
+      "material": "מתכת",
+      "connection_type": "אלחוטי",
+      "warranty": "שנה",
+      "color_options": ["שחור", "כסף"],
+      "durability": ["עמיד למים", "עמיד לאבק"]
+    }
   },
   {
     "id": 5007,
@@ -696,7 +1128,21 @@
     "categories": ["gadgets", "audio"],
     "amount": 14,
     "rating": 4.2,
-    "reviews": 13
+    "reviews": 13,
+    "specifications": {
+      "battery_life_gadget": "חיבור לחשמל בלבד",
+      "compatibility_gadget": "תאימות עם כל המכשירים",
+      "sensors": null,
+      "connectivity_gadget": ["WiFi", "Bluetooth"],
+      "water_resistance": "לא עמיד למים",
+      "special_features": "שליטה בבית חכם",
+      "power_output": "50W",
+      "connectivity_audio": ["WiFi", "Bluetooth"],
+      "battery_life_audio": "חיבור לחשמל בלבד",
+      "sound_quality": "סטריאו",
+      "noise_cancellation": "אין",
+      "waterproof_rating_audio": "אין"
+    }
   },
   {
     "id": 5008,
@@ -711,7 +1157,21 @@
     "categories": ["gadgets", "accessories"],
     "amount": 22,
     "rating": 4.1,
-    "reviews": 15
+    "reviews": 15,
+    "specifications": {
+      "battery_life_gadget": "עד יום",
+      "compatibility_gadget": ["Android", "iOS"],
+      "sensors": null,
+      "connectivity_gadget": "Bluetooth",
+      "water_resistance": "לא עמיד למים",
+      "special_features": null,
+      "compatibility_accessory": ["iPhone", "Android"],
+      "material": "פלסטיק",
+      "connection_type": "Bluetooth",
+      "warranty": "שנה",
+      "color_options": "שחור",
+      "durability": "עמיד לשריטות"
+    }
   },
   {
     "id": 5009,
@@ -726,7 +1186,21 @@
     "categories": ["gadgets", "computers"],
     "amount": 15,
     "rating": 4.9,
-    "reviews": 20
+    "reviews": 20,
+    "specifications": {
+      "battery_life_gadget": "עד יום",
+      "compatibility_gadget": "iOS",
+      "sensors": null,
+      "connectivity_gadget": ["WiFi", "Bluetooth"],
+      "water_resistance": "לא עמיד למים",
+      "special_features": null,
+      "processor": "Apple M2",
+      "ram": "16GB",
+      "storage": "256GB SSD",
+      "graphics_card": "Apple GPU",
+      "operating_system": "iPadOS",
+      "connectivity_ports": ["USB-C", "Thunderbolt"]
+    }
   },
   {
     "id": 6001,
@@ -743,7 +1217,15 @@
     "categories": ["accessories"],
     "amount": 50,
     "rating": 4.3,
-    "reviews": 23
+    "reviews": 23,
+    "specifications": {
+      "compatibility_accessory": ["iPhone", "Android"],
+      "material": "פלסטיק",
+      "connection_type": "אלחוטי",
+      "warranty": "שנה",
+      "color_options": "שחור",
+      "durability": "עמיד לשריטות"
+    }
   },
   {
     "id": 6002,
@@ -758,7 +1240,15 @@
     "categories": ["accessories"],
     "amount": 45,
     "rating": 4.2,
-    "reviews": 26
+    "reviews": 26,
+    "specifications": {
+      "compatibility_accessory": "כל המכשירים",
+      "material": "פלסטיק",
+      "connection_type": ["USB-A", "USB-C"],
+      "warranty": "שנה",
+      "color_options": "שחור",
+      "durability": "עמיד לנפילות"
+    }
   },
   {
     "id": 6003,
@@ -773,7 +1263,15 @@
     "categories": ["accessories"],
     "amount": 100,
     "rating": 3.9,
-    "reviews": 24
+    "reviews": 24,
+    "specifications": {
+      "compatibility_accessory": "iPhone",
+      "material": "סיליקון",
+      "connection_type": ["USB-C", "Lightning"],
+      "warranty": "שנתיים",
+      "color_options": "שחור",
+      "durability": "עמיד לשריטות"
+    }
   },
   {
     "id": 6004,
@@ -788,7 +1286,15 @@
     "categories": ["accessories"],
     "amount": 60,
     "rating": 4.4,
-    "reviews": 21
+    "reviews": 21,
+    "specifications": {
+      "compatibility_accessory": "כל המכשירים",
+      "material": "פלסטיק",
+      "connection_type": "USB-C",
+      "warranty": "שנה",
+      "color_options": "לבן",
+      "durability": "עמיד לחום"
+    }
   },
   {
     "id": 6005,
@@ -803,7 +1309,15 @@
     "categories": ["accessories"],
     "amount": 150,
     "rating": 4.0,
-    "reviews": 27
+    "reviews": 27,
+    "specifications": {
+      "compatibility_accessory": "iPhone",
+      "material": "זכוכית מחוסמת",
+      "connection_type": null,
+      "warranty": "שנה",
+      "color_options": "שקוף",
+      "durability": "עמיד לשריטות"
+    }
   },
   {
     "id": 6006,
@@ -818,7 +1332,15 @@
     "categories": ["accessories"],
     "amount": 35,
     "rating": 3.8,
-    "reviews": 19
+    "reviews": 19,
+    "specifications": {
+      "compatibility_accessory": ["מחשבי Windows", "מחשבי Mac"],
+      "material": "בד",
+      "connection_type": null,
+      "warranty": "שנה",
+      "color_options": "שחור",
+      "durability": ["עמיד למים", "עמיד לשריטות"]
+    }
   },
   {
     "id": 6007,
@@ -833,7 +1355,21 @@
     "categories": ["accessories", "computers"],
     "amount": 25,
     "rating": 4.8,
-    "reviews": 25
+    "reviews": 25,
+    "specifications": {
+      "compatibility_accessory": ["מחשבי Windows", "מחשבי Mac"],
+      "material": "פלסטיק",
+      "connection_type": "USB-A",
+      "warranty": "שנתיים",
+      "color_options": "שחור",
+      "durability": "עמיד לשריטות",
+      "processor": null,
+      "ram": null,
+      "storage": null,
+      "graphics_card": null,
+      "operating_system": null,
+      "connectivity_ports": null
+    }
   },
   {
     "id": 6008,
@@ -844,11 +1380,25 @@
       "https://example.com/images/keychron-k8-2.jpg"
     ],
     "price": 499,
-    "discount": 50,
+    "discount": 0,
     "categories": ["accessories", "computers"],
     "amount": 18,
     "rating": 4.5,
-    "reviews": 16
+    "reviews": 16,
+    "specifications": {
+      "compatibility_accessory": ["מחשבי Windows", "מחשבי Mac"],
+      "material": "אלומיניום",
+      "connection_type": ["Bluetooth", "USB-C"],
+      "warranty": "שנה",
+      "color_options": "שחור",
+      "durability": "עמיד לשריטות",
+      "processor": null,
+      "ram": null,
+      "storage": null,
+      "graphics_card": null,
+      "operating_system": null,
+      "connectivity_ports": null
+    }
   },
   {
     "id": 6009,
@@ -863,7 +1413,15 @@
     "categories": ["accessories"],
     "amount": 12,
     "rating": 4.6,
-    "reviews": 14
+    "reviews": 14,
+    "specifications": {
+      "compatibility_accessory": "iPhone",
+      "material": "פלסטיק",
+      "connection_type": "אלחוטי",
+      "warranty": "שנתיים",
+      "color_options": "לבן",
+      "durability": "עמיד לשריטות"
+    }
   },
   {
     "id": 6010,
@@ -878,7 +1436,15 @@
     "categories": ["accessories"],
     "amount": 80,
     "rating": 3.9,
-    "reviews": 22
+    "reviews": 22,
+    "specifications": {
+      "compatibility_accessory": "iPhone",
+      "material": "סיליקון",
+      "connection_type": null,
+      "warranty": "שנה",
+      "color_options": "שקוף",
+      "durability": ["עמיד לנפילות", "עמיד לשריטות"]
+    }
   },
   {
     "id": 6011,
@@ -894,7 +1460,21 @@
     "categories": ["accessories", "computers"],
     "amount": 25,
     "rating": 3.7,
-    "reviews": 18
+    "reviews": 18,
+    "specifications": {
+      "compatibility_accessory": ["מחשבי Windows", "מחשבי Mac"],
+      "material": "פלסטיק",
+      "connection_type": "USB-A",
+      "warranty": "שנה",
+      "color_options": "שחור",
+      "durability": "עמיד לשריטות",
+      "processor": null,
+      "ram": null,
+      "storage": null,
+      "graphics_card": null,
+      "operating_system": null,
+      "connectivity_ports": null
+    }
   },
   {
     "id": 6012,
@@ -905,10 +1485,24 @@
       "https://example.com/images/anker-docking-station-2.jpg"
     ],
     "price": 599,
-    "discount": 100,
+    "discount": 0,
     "categories": ["accessories", "computers"],
     "amount": 15,
     "rating": 4.4,
-    "reviews": 13
+    "reviews": 13,
+    "specifications": {
+      "compatibility_accessory": ["מחשבי Windows", "מחשבי Mac"],
+      "material": "אלומיניום",
+      "connection_type": ["HDMI", "USB-A", "USB-C"],
+      "warranty": "שנתיים",
+      "color_options": "כסף",
+      "durability": "עמיד לשריטות",
+      "processor": null,
+      "ram": null,
+      "storage": null,
+      "graphics_card": null,
+      "operating_system": null,
+      "connectivity_ports": ["USB-C", "USB 3.0", "HDMI", "DisplayPort"]
+    }
   }
 ]

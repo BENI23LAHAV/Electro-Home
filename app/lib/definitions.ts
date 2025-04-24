@@ -20,6 +20,7 @@ interface Product {
   amount: number;
   rating: number;
   reviews: number;
+  specifications: Specialty;
 }
 interface User {
   id: number;
@@ -47,6 +48,18 @@ interface ProductsGridProps {
   products: Product[];
 }
 
+interface CartContent {
+  productId: number;
+  quantity: number;
+}
+type PriceProps = {
+  price: number | string;
+  discount: number | string;
+};
+type StarRatingProps = {
+  rating: number;
+};
+
 type SortBy = "pop" | "htl" | "lth";
 export type {
   Category,
@@ -57,4 +70,8 @@ export type {
   BodyPageProps,
   ProductsGridProps,
   SortBy,
+  CartContent,
+  Specialty,
+  PriceProps,
+  StarRatingProps,
 };

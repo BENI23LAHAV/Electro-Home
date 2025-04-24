@@ -3,8 +3,10 @@ import image1 from "app/lib/images/image1.jpeg";
 import { Soon } from "./navbar";
 import "app/app.css";
 
-import CategoriesService from "../lib/services/categoriesService";
-import ProductService from "~/lib/services/productService";
+// import CategoriesService from "../lib/services/categoriesService";
+// import ProductService from "~/lib/services/productService";
+// import CartService from "~/lib/services/cartService";
+
 import type {
   BodyPageProps,
   Category,
@@ -15,15 +17,23 @@ import type {
 } from "../lib/definitions";
 import { Form, NavLink, ScrollRestoration, useSubmit } from "react-router";
 import { useEffect, useRef, useState } from "react";
+import { New, Sale } from "./singlProduct";
 
 export async function loader({ params, request }: Route.LoaderArgs) {
+  const { default: CartService } = await import("~/lib/services/cartService");
+  const { default: CategoriesService } = await import(
+    "~/lib/services/categoriesService"
+  );
+  const { default: ProductService } = await import(
+    "~/lib/services/productService"
+  );
+  CartService.getCart();
+
   const url = new URL(request.url);
-  const category = url.searchParams.get("category");
+  let category = url.searchParams.get("category");
   const price = url.searchParams.get("price");
   const sortBy = url.searchParams.get("sortBy");
   const search = url.searchParams.get("search");
-
-  console.log("sortBy at loader", sortBy);
 
   const categories = await CategoriesService.getCategories();
   if (!categories.success) {
@@ -33,19 +43,17 @@ export async function loader({ params, request }: Route.LoaderArgs) {
 
   const withoutCategory = category;
 
-  if (!withoutCategory) {
-    products = await ProductService.getProductsWithImages();
-    if (!products.success) {
-      throw new Response("Products not found", { status: 404 });
-    }
-  } else {
-    products = await ProductService.getProductsByCategory(category as string);
-  }
+  !withoutCategory ? (category = "all") : "";
+  products = await ProductService.getProductsByCategory(category as string);
+
   if (sortBy) {
     products.data = orderBy(products.data as Product[], sortBy as SortBy);
   }
   if (price) {
     products.data = filterByPrice(products.data as Product[], Number(price));
+  }
+  if (search) {
+    products.data = filterBySearch(products.data as Product[], search);
   }
   const res = {
     categories: (await categories.data) as Category[],
@@ -67,10 +75,22 @@ function orderBy(products: Product[], sortBy: SortBy): Product[] {
       return products;
   }
 }
-function filterByPrice(products: Product[], price: number) {
+function filterByPrice(products: Product[], price: number): Product[] {
   return products.filter((product) => product.price <= price);
 }
-
+function filterBySearch(products: Product[], search: string): Product[] {
+  if (!search) {
+    return products;
+  }
+  const searchParameters = search.toLocaleLowerCase().split(" ");
+  return products.filter((product) => {
+    const productName = product.name.toLocaleLowerCase();
+    const productDescription = product.description.toLocaleLowerCase();
+    return searchParameters.every((param) => {
+      return productName.includes(param) || productDescription.includes(param);
+    });
+  });
+}
 export default function Home({ loaderData }: Route.ComponentProps) {
   const categories = loaderData.categories as Category[];
   const products = loaderData.products as Product[];
@@ -95,7 +115,10 @@ function HeadPage() {
         <HeadTitle />
         <Subtitle />
         <div className="flex flex-row gap-4">
-          <HomeButton> מוצרים</HomeButton>
+          <NavLink to="/#our-products">
+            <HomeButton> מוצרים</HomeButton>
+          </NavLink>
+
           <HomeButton>
             {" "}
             מבצעים מיוחדים <Soon />
@@ -165,7 +188,7 @@ export function BodyPage(props: BodyPageProps) {
   }
 
   return (
-    <div className="mb-15">
+    <div className="mb-15" id="our-products">
       <Title />
 
       <Form preventScrollReset>
@@ -245,7 +268,6 @@ function Button(props: any) {
       shadow-[var(--shadow-card)] font-medium hover:bg-[var(--color-primary-light)] hover:text-white
         hover:translate-y-[-5px] hover:duration-300 hover:shadow-[0_10px_20px_rgba(110,0,255,0.2)] `}
       onClick={(e) => {
-        console.log("clicked", props.item.id);
         e.preventDefault();
         const form = e.currentTarget.form;
         const input = form?.querySelector(
@@ -435,7 +457,6 @@ function SearchInput(props: any) {
 }
 
 function ProductsGrid(props: ProductsGridProps) {
-  const items = Array.from({ length: 12 }, (_, i) => `פריט ${i + 1}`);
   const products = props.products as Product[];
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-7 p-4 mt-10">
@@ -450,23 +471,23 @@ function ProductsGrid(props: ProductsGridProps) {
               alt=""
               className="w-full h-full  object-cover hover:transform-content hover:scale-[1.1] transition-[var(--transition-default)]"
             />
-            {item.discount > 0 && (
-              <span className=" absolute top-5 right-5  bg-[var(--color-secondary)] rounded-full px-2 py-1 text-[12px] font-semibold text-[var(--color-dark)]">
-                במבצע!
-              </span>
-            )}
+            {item.discount > 0 && <Sale />}
+            {item.reviews < 10 && <New />}
           </div>{" "}
-          <h2 className="text-lg font-bold  mr-4 text-[var(--color-dark)]">
-            {" "}
-            {item.name}
-          </h2>
-          <h3 className="max-h-28 min-h-28 overflow-hidden my-2 mx-4 text-md text-[var(--color-dark-light)]">
-            {item.description}
-          </h3>
+          <div className="overflow-hidden max-h-40">
+            <h2 className="text-lg font-bold  mr-4 text-[var(--color-dark)]">
+              {" "}
+              {item.name}
+            </h2>
+            <h3 className="max-h-28 min-h-28 overflow-hidden my-2 mx-4 text-md text-[var(--color-dark-light)]">
+              {item.description}
+            </h3>
+          </div>
           <div className="flex flex-row justify-between px-5">
             <p className="text-[var(--color-primary-light)] text-xl font-bold">
               {item.price} ₪
             </p>
+
             <button
               className="bg-[var(--color-primary-light)] rounded-full px-2 py-1 text-white hover:bg-[var(--color-secondary)] transition-[var(--transition-default)]
             hover:translate-y-[-5px] hover:duration-300 font-medium hover:cursor-pointer">

@@ -1,57 +1,65 @@
 import React from "react";
 import "app/app.css";
-import { Link, NavLink, Outlet, useNavigate } from "react-router";
+import { Link, NavLink } from "react-router";
+// import CartService from "~/lib/services/cartService";
+import type { Route } from "../+types/root";
 
-export default function Navbar() {
+export async function loader() {
+  const { default: CartService } = await import("~/lib/services/cartService");
+
+  const cartCapacity = (await CartService.cartCapacity()).data;
+  return cartCapacity;
+}
+
+export default function Navbar({ loaderData }: Route.ComponentProps) {
+  const cartCapacity = Number(loaderData) || 0;
+  const navItems = [
+    { label: "דף הבית", path: "/", soon: false },
+    { label: "מוצרים", path: "/#our-products", soon: false },
+    { label: "מבצעים", soon: true },
+    { label: "חדשנות", soon: true },
+    { label: "תמיכה", soon: true },
+  ];
   return (
     <>
       <div className="h-20 w-full fixed top-0 flex flex-row justify-between my-0 mx-auto items-center shadow-[var(--shadow-dropdown)] bg-white z-30">
         <Logo className="m-0 p-0 " />
 
-        <ul className="flex flex-row w-[30%] justify-between ml-10 ">
-          {["דף הבית", "מוצרים", "מבצעים", "חדשנות", "תמיכה"].map(
-            (item, index) => (
-              <li
-                key={index}
-                className="relative group w-fit cursor-pointer text-center
-                    hover:text-[var(--color-dark-light)]
-                    text-[var(--color-dark)] font-bold
-">
-                <span className="relative z-10">{item}</span>
-
-                {index !== 0 && index !== 1 && <Soon />}
-                <UnderLine />
-              </li>
-            )
-          )}
+        <ul className="flex flex-row w-[33%] justify-between ml-[31%] mx-auto">
+          {navItems.map((item, index) => (
+            <li
+              key={index}
+              className="relative group w-fit cursor-pointer text-center
+                 hover:text-[var(--color-dark-light)]
+                 text-[var(--color-dark)] font-bold">
+              {item.soon ? (
+                <>
+                  <span className="relative z-10">{item.label}</span>
+                  <Soon />
+                </>
+              ) : (
+                <NavLink to={item.path as string} className="relative z-10" end>
+                  {item.label}
+                </NavLink>
+              )}
+              <UnderLine />
+            </li>
+          ))}
         </ul>
-      </div>
+
+        <NavLink
+          to={"/cart"}
+          className="relative ml-[2%]  bg-[var(--color-gray-100)] rounded-full hover:bg-[var(--color-gray-300)] duration-300 transition-[var(--transition-quick)]">
+          <CartComponent className="m-2" />
+          <div className="absolute -top-2 -right-2 w-5 h-5 rounded-full bg-[var(--color-primary)] text-white text-xs flex items-center justify-center z-40">
+            {cartCapacity}
+          </div>
+        </NavLink>
+      </div>{" "}
     </>
   );
 }
 
-// export function Logo(props: any) {
-//   return (
-//     <Link to={"/"}>
-//       <div className="flex items-center gap-2 text-3xl font-extrabold bg-gradient-to-r from-[#2b9cd8] to-[#5cd1a4] text-transparent bg-clip-text mr-10 hover:cursor-pointer z-100">
-//         <svg
-//           className="w-8 h-8 text-[#2b9cd8]"
-//           viewBox="0 0 24 24"
-//           fill="none"
-//           xmlns="http://www.w3.org/2000/svg">
-//           <path
-//             d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
-//             stroke="currentColor"
-//             strokeWidth="2"
-//           />
-//           <path d="M5 12H19" stroke="currentColor" strokeWidth="2" />
-//           <path d="M12 5V19" stroke="currentColor" strokeWidth="2" />
-//         </svg>{" "}
-//         אלקטרו home
-//       </div>
-//     </Link>
-//   );
-// }
 export function Logo({
   showIcon = true,
   width = "auto",
@@ -106,5 +114,25 @@ function UnderLine(props: any) {
         bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-tertiary)]
 
         "></span>
+  );
+}
+
+function CartComponent(props: any) {
+  return (
+    <svg
+      width={24}
+      height={24}
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}>
+      <path
+        d="M9 22a1 1 0 100-2 1 1 0 000 2zM20 22a1 1 0 100-2 1 1 0 000 2zM1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"
+        stroke="currentColor"
+        strokeWidth={2}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
   );
 }
