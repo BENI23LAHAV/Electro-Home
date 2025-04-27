@@ -8,7 +8,7 @@ import {
 export default [
   layout("routes/wrapper.tsx", [
     route("/:category?", "routes/home.tsx"),
-    route("/product/:id", "routes/singlProduct.tsx"),
+    route("/product/:id/:message?/:success?", "routes/singlProduct.tsx"),
     route("/cart", "routes/shoppingCart.tsx"),
   ]),
 ] satisfies RouteConfig;

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type {
   Product,
   Category,
@@ -8,9 +8,8 @@ import type {
 } from "../lib/definitions";
 
 import type { Route } from "../+types/root";
-// import ProductService from "~/lib/services/productService";
-// import CategoriesService from "~/lib/services/categoriesService";
-import { Form } from "react-router";
+
+import { useFetcher } from "react-router";
 
 export async function loader({ params }: Route.LoaderArgs) {
   const { default: CategoriesService } = await import(
@@ -21,35 +20,55 @@ export async function loader({ params }: Route.LoaderArgs) {
   );
   const product = (await ProductService.getProductById(Number(params.id)))
     .data as Product;
-  let productCategories;
 
+  let productCategories;
   if (product) {
     const allCategories = (await CategoriesService.getCategories())
       .data as Category[];
     const productCategoryIds = product.categories as string[];
-
-    productCategories = allCategories.filter((category) => {
-      return productCategoryIds.includes(category.id);
-    });
+    productCategories = allCategories.filter((category) =>
+      productCategoryIds.includes(category.id)
+    );
   }
 
   return { product, productCategories };
 }
+
 export async function action({ request }: Route.ActionArgs) {
   const { default: CartService } = await import("~/lib/services/cartService");
   const formData = await request.formData();
   const productId = Number(formData.get("productID"));
   const quantity = Number(formData.get("productQuantity"));
+  const result = (await CartService.addProduct({ productId, quantity }))
+    .success;
 
-  console.log(productId);
-
-  console.log((await CartService.addProduct({ productId, quantity })).message);
+  return { success: result as boolean, isVisible: true };
 }
+
 export default function SingleProduct({ loaderData }: Route.ComponentProps) {
-  const product = loaderData?.product as Product | undefined;
-  const productCategories = loaderData?.productCategories as
+  const product = loaderData.product as Product;
+  const productCategories = loaderData.productCategories as
     | Category[]
     | undefined;
+  const fetcher = useFetcher();
+
+  const [currentImage, setCurrentImage] = useState(product.images[0]);
+  const [quantity, setQuantity] = useState(1);
+  const [showMessage, setShowMessage] = useState(false);
+  const [messageType, setMessageType] = useState<"success" | "error">(
+    "success"
+  );
+
+  useEffect(() => {
+    if (fetcher.data?.isVisible) {
+      setShowMessage(true);
+      setMessageType(fetcher.data.success ? "success" : "error");
+
+      const timer = setTimeout(() => setShowMessage(false), 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [fetcher.data]);
+
   if (!product) {
     return (
       <div className="w-[90%] mx-auto mt-20 flex flex-col items-center justify-center">
@@ -57,14 +76,11 @@ export default function SingleProduct({ loaderData }: Route.ComponentProps) {
       </div>
     );
   }
-  const [currentImage, setCurrentImage] = useState<string>(product.images[0]);
-  const [quantity, setQuantity] = useState<number>(1);
-  const [stock, setStock] = useState<number>(product.amount);
 
   return (
     <div className="mt-20 flex flex-row justify-between mr-[2%]">
-      <div className="w-1/2 ">
-        <div className="max-w-[95%] min-w-[95%] h-[500px] p-10 bg-white  rounded-md my-5 shadow-[var(--shadow-card)] overflow-hidden">
+      <div className="w-1/2">
+        <div className="max-w-[95%] h-[700px] p-10 bg-white rounded-md my-5 shadow overflow-hidden">
           <LargeImage url={currentImage} />
         </div>
         <div className="flex flex-row justify-start gap-2 my-5">
@@ -78,66 +94,48 @@ export default function SingleProduct({ loaderData }: Route.ComponentProps) {
           ))}
         </div>
       </div>
-      <div className="mt-5 flex flex-col items-start w-1/2">
+
+      <div className="w-1/2 flex flex-col items-start">
         <div className="w-[90%] mx-auto">
-          <div className="">
-            {""}
-            {product.reviews < 10 && <New />}
-            {product.discount > 0 && <Sale />}
+          <div>
+            {product.reviews < 10 && <New />} {product.discount > 0 && <Sale />}
           </div>
           <h1 className="text-5xl font-bold">{product.name}</h1>
-          <span className="text-[var(--color-gray-500)] flex flex-row gap-5 mt-2 py-2">
+          <div className="flex gap-5 text-gray-500 mt-2 py-2">
             <StarRating rating={product.rating} />
             {product.reviews + " ביקורות"}
-          </span>
-
+          </div>
           <FinalPrice price={product.price} discount={product.discount} />
           <EnterByDot>{product.description}</EnterByDot>
           <Specification
             specification={product.specifications}
             productCategories={productCategories}
           />
+          <AddToCartMessage
+            visible={showMessage}
+            success={messageType === "success"}
+          />
           <Quantity quantity={quantity} setQuantity={setQuantity} />
-          <Form method="post" preventScrollReset>
-            <input
-              type="text"
-              hidden
-              defaultValue={quantity}
-              name="productQuantity"
-            />
-            <input
-              type="text"
-              hidden
-              defaultValue={product.id}
-              name="productID"
-            />
+
+          <fetcher.Form
+            method="post"
+            preventScrollReset
+            onSubmit={(e) => {
+              e.preventDefault();
+              fetcher.submit(e.currentTarget, {
+                method: "post",
+                preventScrollReset: true,
+              });
+            }}>
+            <input type="hidden" name="productQuantity" value={quantity} />
+            <input type="hidden" name="productID" value={product.id} />
             <button
               type="submit"
-              onClick={(e) => {
-                e.preventDefault();
-                const form = e.currentTarget.form;
-
-                const inputQuantity = form?.querySelector(
-                  'input[name="productQuantity"]'
-                ) as HTMLInputElement;
-                const inputID = e.currentTarget.form?.querySelector(
-                  'input[name="productID"]'
-                ) as HTMLInputElement;
-                if (inputID) {
-                  inputID.value = product.id + "";
-                }
-                if (inputQuantity && quantity > 0) {
-                  inputQuantity.value = quantity + "";
-                }
-
-                form?.requestSubmit();
-              }}
-              className="w-full  py-3 mt-5 bg-[var(--color-primary)] text-white rounded-full 
-          font-semibold
-        hover:bg-[var(--color-primary-dark)] hover:cursor-pointer duration-300">
+              className="w-full py-3 mt-5 bg-[var(--color-primary)] text-white rounded-full font-semibold hover:bg-[var(--color-primary-dark)] hover:cursor-pointer duration-300">
               הוספה לסל
             </button>
-          </Form>
+          </fetcher.Form>
+
           <div className="flex flex-row my-10 justify-between">
             <DeliveryConditons
               title="משלוח חינם"
@@ -146,8 +144,7 @@ export default function SingleProduct({ loaderData }: Route.ComponentProps) {
             />
             <DeliveryConditons
               title="זמן אספקה"
-              text="3-5 ימי עסקים
-"
+              text="3-5 ימי עסקים"
               Icon={<ClockComponent />}
             />
             <DeliveryConditons
@@ -320,11 +317,11 @@ function LargeImage({ url }: { url: string }) {
   };
 
   return (
-    <div className="w-full h-full overflow-hidden rounded-md">
+    <div className="w-full h-full overflow-hidden rounded-md ">
       <img
         src={url}
         alt="current product"
-        className={`w-full h-full object-cover transition-transform duration-500 ease-out hover:scale-150`}
+        className={`w-full h-full  object-cover transition-transform duration-500 ease-out hover:scale-150`}
         style={{
           transform: `translate(${offset.x}px, ${offset.y}px)`,
         }}
@@ -482,6 +479,57 @@ function LocationComponent(props: any) {
       <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
       <circle cx={12} cy={10} r={3} />
     </svg>
+  );
+}
+function StatusComponent(props: any) {
+  return (
+    <svg
+      width={20}
+      height={20}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      {...props}>
+      <circle cx={12} cy={12} r={10} />
+      <path d="M12 8L12 12" />
+      <path d="M12 16L12.01 16" />
+    </svg>
+  );
+}
+function AddToCartMessage({
+  visible,
+  success,
+}: {
+  visible: boolean;
+  success: boolean;
+}) {
+  const successMessage = "המוצר התווסף בהצלחה";
+  const errorMessage = "לא ניתן להוסיף את המוצר לסל";
+
+  return (
+    <>
+      {visible && (
+        <div
+          className={`flex flex-row justify-center items-center my-5 py-2 h-15
+            transition-all duration-500 ease-in-out
+           ${
+             success
+               ? "text-[var(--color-success)] bg-[var(--color-success-light)]"
+               : "text-[var(--color-error)] bg-[var(--color-error-light)]"
+           } font-semibold rounded-sm`}>
+          <StatusComponent />
+          <span className="text-2xl rounded-full p-2 text-center">
+            {success ? successMessage : errorMessage}
+          </span>
+        </div>
+      )}
+      {!visible && (
+        <div className="flex flex-row justify-center items-center h-15 my-5 py-2 font-semibold rounded-sm"></div>
+      )}
+    </>
   );
 }
 
