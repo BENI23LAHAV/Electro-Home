@@ -167,7 +167,7 @@ function HomeButton(props: any) {
         border-[var(--color-primary)] border-[2.5px]
         text-[var(--color-primary)] rounded-full hover:bg-gradient-to-r hover:from-[var(--color-primary)]
         hover:to-[var(--color-primary)] hover:text-white
-        hover:translate-y-[-5px] hover:duration-300 hover:shadow-[0_10px_20px_rgba(110,0,255,0.2)]">
+        hover:translate-y-[-5px] hover:duration-300 hover:shadow-[0_10px_20px_rgba(110,0,255,0.2)] hover:cursor-pointer">
       {props.children}
     </button>
   );

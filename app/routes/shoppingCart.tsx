@@ -1,8 +1,7 @@
-import type { R } from "node_modules/vite/dist/node/types.d-aGj9QkWt";
 import { useMemo, useState } from "react";
 import type { CartContent, Product } from "~/lib/definitions";
 import type { Route } from "../+types/root";
-import { Form, NavLink, redirect, useFetcher } from "react-router";
+import { Form, NavLink, useActionData, useFetcher } from "react-router";
 
 export async function loader() {
   const { default: CartService } = await import("~/lib/services/cartService");
@@ -17,64 +16,90 @@ export async function loader() {
       return product;
     })
   );
-
   return { products, cartContent };
 }
+
 export async function action({ request }: Route.ActionArgs) {
   const { default: CartService } = await import("~/lib/services/cartService");
-
   const formData = await request.formData();
+
   const productId = Number(formData.get("productID"));
   const quantity = Number(formData.get("productQuantity"));
   const removeProduct = Number(formData.get("removeProduct"));
+  const coupon = formData.get("coupon-discount");
 
   if (removeProduct) {
-    const result = (await CartService.removeProduct(removeProduct)).success;
-    return redirect("/cart");
+    await CartService.removeProduct(removeProduct);
   } else if (productId && quantity >= 1) {
-    const result = (await CartService.changeQuantity(productId, quantity))
-      .success;
+    await CartService.changeQuantity(productId, quantity);
   }
+
+  if (coupon === "Netanel Elbaz") {
+    return { discountPercent: 20 };
+  }
+  return null;
 }
 
 export default function ShoppingCart({ loaderData }: Route.ComponentProps) {
   const products = loaderData.products as Product[] | undefined;
   const cartContent = loaderData.cartContent as CartContent[] | undefined;
-  const cartContentMap = new Map<number, number>();
-  cartContent?.forEach((item) => {
-    cartContentMap.set(item.productId, item.quantity);
-  });
-  const productsNum = useMemo(() => cartContent?.length || 0, [cartContent]);
-  const totalPrice = useMemo(() => {
-    return products?.reduce(
-      (sum, item) => sum + item.price * (cartContentMap.get(item.id) ?? 1),
-      0
-    );
-  }, [products, cartContentMap]);
+  const fetcher = useFetcher();
+  const discountPercent = fetcher.data?.discountPercent ?? 0;
 
-  const totalDiscunt = useMemo(() => {
-    return products?.reduce(
-      (sum, item) => sum + item.discount * (cartContentMap.get(item.id) ?? 1),
-      0
-    );
-  }, [products, cartContentMap]);
+  const cartContentMap = useMemo(() => {
+    const map = new Map<number, number>();
+    cartContent?.forEach((item) => {
+      map.set(item.productId, item.quantity);
+    });
+    return map;
+  }, [cartContent]);
+
+  const productsNum = useMemo(() => cartContent?.length || 0, [cartContent]);
+
+  const totalPrice = useMemo(() => {
+    const productsTotal =
+      products?.reduce((sum, item) => {
+        const quantity = cartContentMap.get(item.id) ?? 1;
+        return sum + item.price * quantity;
+      }, 0) ?? 0;
+
+    return productsTotal * (1 - discountPercent / 100);
+  }, [products, cartContentMap, discountPercent]);
+
+  const totalDiscount = useMemo(() => {
+    const productsDiscount =
+      products?.reduce((sum, item) => {
+        const quantity = cartContentMap.get(item.id) ?? 1;
+        return sum + item.discount * quantity;
+      }, 0) ?? 0;
+
+    const discountByCoupon =
+      products?.reduce((sum, item) => {
+        const quantity = cartContentMap.get(item.id) ?? 1;
+        return sum + item.price * quantity;
+      }, 0) ?? 0;
+
+    return productsDiscount + discountByCoupon * (discountPercent / 100);
+  }, [products, cartContentMap, discountPercent]);
+
   return (
     <div className="min-w-full flex flex-col">
-      <div>
-        <Header />
-      </div>
+      <Header />
       <HomeNavaigate />
       <div className="flex flex-row my-10">
-        <div className="w-2/3 shadow-[--shadow-card] bg-white mx-6  p-10 rounded-2xl">
+        <div className="w-2/3 shadow-[--shadow-card] bg-white mx-6 p-10 rounded-2xl">
           <Products products={products} cartContentMap={cartContentMap} />
         </div>
-
-        <div className="w-1/3 shadow-[--shadow-card] bg-white mx-6  p-10 rounded-2xl flex flex-col">
+        <div className="w-1/3 shadow-[--shadow-card] bg-white mx-6 p-10 rounded-2xl flex flex-col">
           <CheckoutHeader />
           <Summary productsNum={productsNum} totalPrice={totalPrice} />
           <Shipping />
           <Takses totalPrice={totalPrice} />
-          <Total totalPrice={totalPrice} />
+          <Total
+            totalPrice={totalPrice}
+            totalDiscount={totalDiscount}
+            fetcher={fetcher}
+          />
           <Payment />
         </div>
       </div>
@@ -273,44 +298,61 @@ function Takses({ totalPrice }: { totalPrice: number }) {
   );
 }
 
-function Total({ totalPrice }: { totalPrice: number }) {
-  const [allowed, setAllowed] = useState<boolean>(false);
+function Total({
+  totalPrice,
+  totalDiscount,
+  fetcher,
+}: {
+  totalPrice: number;
+  totalDiscount: number;
+  fetcher: ReturnType<typeof useFetcher>;
+}) {
   const shippingPrice = 0;
+  const [allowed, setAllowed] = useState<boolean>(false);
+
   return (
     <>
-      <span className="w-full h-[1px]  block bg-[var(--color-gray-200)] mx-auto my-5"></span>
+      <span className="w-full h-[1px] block bg-[var(--color-gray-200)] mx-auto my-5"></span>
       <div className="flex flex-row justify-between items-center text-[var(--color-gray-600)] font-semibold text-lg mt-5">
         <span className="font-bold text-2xl">סה"כ לתשלום</span>
         <span className="text-[var(--color-dark)] font-bold text-2xl">
           ₪{formatNumber(totalPrice + shippingPrice)}
         </span>
       </div>
+      {totalDiscount > 0 && (
+        <div className="flex flex-row justify-between items-center text-[var(--color-gray-600)] font-semibold text-lg mt-5">
+          <span>סה"כ חסכת😊</span>
+          <span className="text-[var(--color-success)] font-bold">
+            ₪{formatNumber(totalDiscount)}
+          </span>
+        </div>
+      )}
+
       <label
-        htmlFor="input-discount"
+        htmlFor="coupon-discount"
         className="font-bold text-xl text-[var(--color-gray-600)] mt-10">
-        קופון הנחה{" "}
+        קופון הנחה
       </label>
-      <div className="flex flex-row justify-between items-center text-[var(--color-gray-600)] font-semibold text-lg mt-5 gap-10">
+      <fetcher.Form
+        method="post"
+        className="flex flex-row justify-between items-center text-[var(--color-gray-600)] font-semibold text-lg mt-5 gap-10">
         <input
           type="text"
           placeholder="הזן קוד קופון"
-          id="input-discount"
-          className="w-2/3 h-15 p-5 border-[1px] border-[var(--color-gray-200)]   text-[var(--color-dark)] font-semibold
-            focus:outline-none focus:border-[var(--color-primary)] focus:ring-1 focus:ring-[var(--color-primary)]
-            focus:ring-opacity-50 disabled:opacity-50 disabled:cursor-not-allowed rounded-full"
+          id="coupon-discount"
+          name="coupon-discount"
+          className="w-2/3 h-15 p-5 border-[1px] border-[var(--color-gray-200)] text-[var(--color-dark)] font-semibold focus:outline-none focus:border-[var(--color-primary)] focus:ring-1 focus:ring-[var(--color-primary)] focus:ring-opacity-50 disabled:opacity-50 disabled:cursor-not-allowed rounded-full"
           onChange={(e) => {
-            if (e.target.value.length > 0) setAllowed(true);
-            else setAllowed(false);
+            setAllowed(e.target.value.length > 0);
           }}
         />
         <button
-          className="w-1/3 h-15  border-[1px] bg-[var(--color-primary)]   text-white font-semibold
-            hover:bg-[var(--color-primary-dark)] hover:cursor-pointer duration-300
-             disabled:opacity-50 disabled:cursor-not-allowed rounded-full "
+          type="submit"
+          className="w-1/3 h-15 border-[1px] bg-[var(--color-primary)] text-white font-semibold hover:bg-[var(--color-primary-dark)] hover:cursor-pointer duration-300 disabled:opacity-50 disabled:cursor-not-allowed rounded-full"
           disabled={!allowed}>
           החל
         </button>
-      </div>
+      </fetcher.Form>
     </>
   );
 }

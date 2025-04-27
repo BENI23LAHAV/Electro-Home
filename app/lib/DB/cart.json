@@ -4,7 +4,15 @@
     "quantity": 4
   },
   {
+    "productId": 2001,
+    "quantity": 2
+  },
+  {
     "productId": 3002,
+    "quantity": 2
+  },
+  {
+    "productId": 1002,
     "quantity": 1
   }
 ]
