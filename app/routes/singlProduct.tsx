@@ -6,7 +6,7 @@ import type {
   PriceProps,
   StarRatingProps,
 } from "../lib/definitions";
-
+import { formatNumber } from "./shoppingCart";
 import type { Route } from "../+types/root";
 
 import { useFetcher } from "react-router";
@@ -271,7 +271,7 @@ function FinalPrice({ price, discount }: PriceProps) {
   if (!hasDiscount) {
     return (
       <span className="text-3xl font-bold text-[var(--color-primary)]">
-        {numericPrice} ₪
+        {formatNumber(price)} ₪
       </span>
     );
   }
@@ -282,10 +282,10 @@ function FinalPrice({ price, discount }: PriceProps) {
   return (
     <div className="flex items-center gap-2">
       <span className="text-lg line-through text-[var(--color-gray-500)] font-semibold">
-        {originalPrice} ₪
+        {formatNumber(originalPrice)} ₪
       </span>
       <span className="text-3xl font-bold text-[var(--color-primary)]">
-        {numericPrice} ₪
+        {formatNumber(numericPrice)} ₪
       </span>
       <span className="text-3xl font-semibold text-[var(--color-success)]">
         % {discountPercent}-

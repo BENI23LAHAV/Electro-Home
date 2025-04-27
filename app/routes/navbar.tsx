@@ -2,17 +2,8 @@ import React from "react";
 import "app/app.css";
 import { Link, NavLink } from "react-router";
 // import CartService from "~/lib/services/cartService";
-import type { Route } from "../+types/root";
 
-export async function loader() {
-  const { default: CartService } = await import("~/lib/services/cartService");
-
-  const cartCapacity = (await CartService.cartCapacity()).data;
-  return cartCapacity;
-}
-
-export default function Navbar({ loaderData }: Route.ComponentProps) {
-  const cartCapacity = Number(loaderData) || 0;
+export function Navbar({ cartCapacity }: { cartCapacity: number }) {
   const navItems = [
     { label: "דף הבית", path: "/", soon: false },
     { label: "מוצרים", path: "/#our-products", soon: false },
@@ -51,9 +42,11 @@ export default function Navbar({ loaderData }: Route.ComponentProps) {
           to={"/cart"}
           className="relative ml-[2%]  bg-[var(--color-gray-100)] rounded-full hover:bg-[var(--color-gray-300)] duration-300 transition-[var(--transition-quick)]">
           <CartComponent className="m-2" />
-          <div className="absolute -top-2 -right-2 w-5 h-5 rounded-full bg-[var(--color-primary)] text-white text-xs flex items-center justify-center z-40">
-            {cartCapacity}
-          </div>
+          {cartCapacity > 0 && (
+            <div className="absolute -top-2 -right-2 w-5 h-5 rounded-full bg-[var(--color-primary)] text-white text-xs flex items-center justify-center z-40">
+              {cartCapacity}
+            </div>
+          )}
         </NavLink>
       </div>{" "}
     </>

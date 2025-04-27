@@ -1,10 +1,10 @@
 [
   {
     "productId": 1001,
-    "quantity": 56
+    "quantity": 4
   },
   {
-    "productId": 2001,
-    "quantity": 8
+    "productId": 3002,
+    "quantity": 1
   }
 ]

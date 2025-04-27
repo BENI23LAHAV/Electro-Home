@@ -1,6 +1,63 @@
-import { useState } from "react";
+import type { R } from "node_modules/vite/dist/node/types.d-aGj9QkWt";
+import { useMemo, useState } from "react";
+import type { CartContent, Product } from "~/lib/definitions";
+import type { Route } from "../+types/root";
+import { Form, NavLink, redirect, useFetcher } from "react-router";
 
-export default function ShoppingCart() {
+export async function loader() {
+  const { default: CartService } = await import("~/lib/services/cartService");
+  const { default: ProductService } = await import(
+    "~/lib/services/productService"
+  );
+  const cartContent = (await CartService.getCart()).data as CartContent[];
+  const products = await Promise.all(
+    cartContent.map(async (item) => {
+      const product = (await ProductService.getProductById(item.productId))
+        .data as Product;
+      return product;
+    })
+  );
+
+  return { products, cartContent };
+}
+export async function action({ request }: Route.ActionArgs) {
+  const { default: CartService } = await import("~/lib/services/cartService");
+
+  const formData = await request.formData();
+  const productId = Number(formData.get("productID"));
+  const quantity = Number(formData.get("productQuantity"));
+  const removeProduct = Number(formData.get("removeProduct"));
+
+  if (removeProduct) {
+    const result = (await CartService.removeProduct(removeProduct)).success;
+    return redirect("/cart");
+  } else if (productId && quantity >= 1) {
+    const result = (await CartService.changeQuantity(productId, quantity))
+      .success;
+  }
+}
+
+export default function ShoppingCart({ loaderData }: Route.ComponentProps) {
+  const products = loaderData.products as Product[] | undefined;
+  const cartContent = loaderData.cartContent as CartContent[] | undefined;
+  const cartContentMap = new Map<number, number>();
+  cartContent?.forEach((item) => {
+    cartContentMap.set(item.productId, item.quantity);
+  });
+  const productsNum = useMemo(() => cartContent?.length || 0, [cartContent]);
+  const totalPrice = useMemo(() => {
+    return products?.reduce(
+      (sum, item) => sum + item.price * (cartContentMap.get(item.id) ?? 1),
+      0
+    );
+  }, [products, cartContentMap]);
+
+  const totalDiscunt = useMemo(() => {
+    return products?.reduce(
+      (sum, item) => sum + item.discount * (cartContentMap.get(item.id) ?? 1),
+      0
+    );
+  }, [products, cartContentMap]);
   return (
     <div className="min-w-full flex flex-col">
       <div>
@@ -9,15 +66,15 @@ export default function ShoppingCart() {
       <HomeNavaigate />
       <div className="flex flex-row my-10">
         <div className="w-2/3 shadow-[--shadow-card] bg-white mx-6  p-10 rounded-2xl">
-          <Products />
+          <Products products={products} cartContentMap={cartContentMap} />
         </div>
 
         <div className="w-1/3 shadow-[--shadow-card] bg-white mx-6  p-10 rounded-2xl flex flex-col">
           <CheckoutHeader />
-          <Summary />
+          <Summary productsNum={productsNum} totalPrice={totalPrice} />
           <Shipping />
-          <Takses />
-          <Total />
+          <Takses totalPrice={totalPrice} />
+          <Total totalPrice={totalPrice} />
           <Payment />
         </div>
       </div>
@@ -40,7 +97,7 @@ function ArrowComponent(props: any) {
     </svg>
   );
 }
-function XComponent(props: any) {
+function RemoveComponent(props: any) {
   return (
     <svg
       width={18}
@@ -71,40 +128,22 @@ function HomeNavaigate() {
   return (
     <>
       {" "}
-      <div
+      <NavLink
+        to={"/#our-products"}
         className="flex flex-row items-center gap-1.5 text-[var(--color-primary)] font-semibold text-xl my-10
   hover:text-[var(--color-dark)] hover:cursor-pointer duration-300">
         <ArrowComponent /> המשך לקנות
-      </div>
+      </NavLink>
     </>
   );
 }
-function Products() {
-  const products = [
-    {
-      image:
-        "https://d3m9l0v76dty0.cloudfront.net/system/photos/12879994/large/81c1a950953bcc83d981a81e78fd3240.png",
-
-      details: "תיאור קצר",
-      price: "₪100",
-      quantity: 2,
-      total: "₪200",
-    },
-    {
-      image: "מוצר ב'",
-      details: "משהו מגניב",
-      price: "₪75",
-      quantity: 1,
-      total: "₪75",
-    },
-    {
-      image: "מוצר ג'",
-      details: "עוד מוצר",
-      price: "₪50",
-      quantity: 3,
-      total: "₪150",
-    },
-  ];
+function Products({
+  products,
+  cartContentMap,
+}: {
+  products: Product[] | undefined;
+  cartContentMap: Map<number, number>;
+}) {
   return (
     <>
       <div className="grid grid-cols-[1fr_2fr_0.5fr_1fr_0.5fr_0.5fr] gap-5 text-[var(--color-gray-600)] font-semibold text-lg">
@@ -116,46 +155,68 @@ function Products() {
       </div>
       <span className="w-full h-[1px]  block bg-[var(--color-gray-200)] mx-auto my-5"></span>
 
-      {products.map((product, index) => {
-        return (
-          <>
-            <div className="grid grid-cols-[1fr_2fr_0.5fr_1fr_0.5fr_0.5fr] gap-5 text-[var(--color-dark)] font-bold text-lg">
-              <img
-                src={product.image}
-                alt={product.details}
-                className="bg-gray-100 mt min-w-20 min-h-20 max-w-20 max-h-20 m-0 shadow-[var(--shadow-card)] rounded-md object-cover "
-              />
-              <div className="mt-5">{product.details}</div>
-              <div className="mt-5 text-[var(--color-primary)]">
-                {product.price}
-              </div>
-
-              <div className=" mt-5 flex items-stretch gap-1 rounded-full border border-[var(--color-gray-300)] h-10 w-fit overflow-hidden">
-                <button className="cursor-pointer w-10 h-full flex items-center justify-center bg-transparent hover:bg-[var(--color-gray-300)] transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
-                  -
-                </button>
-                <div className="min-w-12 text-center flex items-center justify-center px-2">
-                  {product.quantity}
+      {products &&
+        products.map((product, index) => {
+          return (
+            <>
+              <div className="grid grid-cols-[1fr_2fr_0.5fr_1fr_0.5fr_0.5fr] gap-5 text-[var(--color-dark)] font-bold text-lg">
+                <NavLink to={`/product/${product.id}`}>
+                  {" "}
+                  <img
+                    src={product.images[0]}
+                    alt={product.name}
+                    className="bg-gray-100 mt min-w-20 min-h-20 max-w-20 max-h-20 m-0 shadow-[var(--shadow-card)] rounded-md object-cover hover:scale-110 duration-300"
+                  />
+                </NavLink>
+                <NavLink
+                  to={`/product/${product.id}`}
+                  className="mt-5 hover:underline">
+                  {product.name}
+                </NavLink>
+                <div className="mt-5 text-[var(--color-primary)]">
+                  {formatNumber(product.price)}
                 </div>
-                <button className="cursor-pointer w-10 h-full flex items-center justify-center bg-transparent hover:bg-[var(--color-gray-300)] transition-colors ">
-                  +
-                </button>
-              </div>
-
-              <div className="mt-5 text-color[var(--color-dark-light)]">
-                {product.total}
-              </div>
-              <div className="mt-5">
-                <XComponent
-                  className="font-bold hover:bg-red hover:cursor-pointer hover:text-red-700
-                       duration-300 hover:rotate-90"
+                <Quantity
+                  productID={product.id}
+                  quantity={cartContentMap.get(product.id)}
                 />
+                <div className="mt-5 text-color[var(--color-dark-light)]">
+                  {formatNumber(
+                    product.price * Number(cartContentMap.get(product.id))
+                  )}
+                </div>
+                <Form method="post" className="mt-5">
+                  <input
+                    type="text"
+                    name="removeProduct"
+                    defaultValue={""}
+                    hidden
+                  />
+                  <button
+                    type="submit"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      const form = e.currentTarget.form;
+                      const input = form?.querySelector(
+                        "input[name='removeProduct']"
+                      ) as HTMLInputElement;
+
+                      if (input) {
+                        input.value = product.id.toString();
+                      }
+                      form?.requestSubmit();
+                    }}>
+                    <RemoveComponent
+                      className="font-bold hover:bg-red hover:cursor-pointer hover:text-red-700
+                       duration-300 hover:rotate-90"
+                    />
+                  </button>
+                </Form>
               </div>
-            </div>
-            <span className="w-full h-[1px]  block bg-[var(--color-gray-200)] mx-auto my-5"></span>
-          </>
-        );
-      })}
+              <span className="w-full h-[1px]  block bg-[var(--color-gray-200)] mx-auto my-5"></span>
+            </>
+          );
+        })}
     </>
   );
 }
@@ -172,13 +233,19 @@ function CheckoutHeader() {
   );
 }
 
-function Summary() {
-  const sum = 6;
-  const totalPrice = 425;
+function Summary({
+  productsNum,
+  totalPrice,
+}: {
+  productsNum: number;
+  totalPrice: number;
+}) {
   return (
     <div className="flex flex-row justify-between items-center text-[var(--color-gray-600)] font-semibold text-lg mt-5">
-      <span>סה"כ מוצרים ({sum}) </span>
-      <span className="text-[var(--color-dark)]">{totalPrice} ₪</span>
+      <span>סה"כ מוצרים ({productsNum}) </span>
+      <span className="text-[var(--color-dark)]">
+        {formatNumber(totalPrice)} ₪
+      </span>
     </div>
   );
 }
@@ -194,11 +261,10 @@ function Shipping() {
     </div>
   );
 }
-function Takses() {
+function Takses({ totalPrice }: { totalPrice: number }) {
   const taxes = 18;
-  const totalPrice = 425;
   const shippingPrice = 0;
-  const totalTakes = ((totalPrice + shippingPrice) / 100) * taxes;
+  const totalTakes = formatNumber(((totalPrice + shippingPrice) / 100) * taxes);
   return (
     <div className="flex flex-row justify-between items-center text-[var(--color-gray-600)] font-semibold text-lg mt-5">
       <span>מע"מ {taxes}% (כלול)</span>
@@ -207,9 +273,8 @@ function Takses() {
   );
 }
 
-function Total() {
+function Total({ totalPrice }: { totalPrice: number }) {
   const [allowed, setAllowed] = useState<boolean>(false);
-  const totalPrice = 425;
   const shippingPrice = 0;
   return (
     <>
@@ -217,7 +282,7 @@ function Total() {
       <div className="flex flex-row justify-between items-center text-[var(--color-gray-600)] font-semibold text-lg mt-5">
         <span className="font-bold text-2xl">סה"כ לתשלום</span>
         <span className="text-[var(--color-dark)] font-bold text-2xl">
-          ₪{totalPrice + shippingPrice}
+          ₪{formatNumber(totalPrice + shippingPrice)}
         </span>
       </div>
       <label
@@ -283,5 +348,81 @@ function WalletComponent(props: any) {
       <rect x={1} y={4} width={22} height={16} rx={2} ry={2} />
       <path d="M1 10L23 10" />
     </svg>
+  );
+}
+export function formatNumber(value: number | string): string {
+  const number = typeof value === "string" ? parseFloat(value) : value;
+
+  if (isNaN(number)) {
+    return "0";
+  }
+
+  return number.toLocaleString("he-IL");
+}
+
+function Quantity({
+  productID,
+  quantity = 1,
+}: {
+  productID: number;
+  quantity?: number;
+}) {
+  const fetcher = useFetcher();
+  const [productQuantity, setProductQuantity] = useState<number>(quantity);
+
+  return (
+    <fetcher.Form
+      method="post"
+      className=" mt-5 flex items-stretch gap-1 rounded-full border border-[var(--color-gray-300)] h-10 w-fit overflow-hidden">
+      <input type="text" name="productID" defaultValue={productID} hidden />
+      <input
+        type="text"
+        name="productQuantity"
+        defaultValue={productQuantity}
+        hidden
+      />
+      <button
+        className="cursor-pointer w-10 h-full flex items-center justify-center bg-transparent hover:bg-[var(--color-gray-300)] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+        onClick={(e) => {
+          e.preventDefault();
+          const newQuantity = productQuantity - 1;
+          setProductQuantity(newQuantity);
+          const form = e.currentTarget.form;
+          const input = form?.querySelector(
+            'input[name="productQuantity"]'
+          ) as HTMLInputElement;
+
+          if (input) {
+            input.value = newQuantity + "";
+          }
+          form?.requestSubmit();
+        }}
+        disabled={productQuantity <= 1}>
+        -
+      </button>
+      <div className="min-w-12 text-center flex items-center justify-center px-2">
+        {productQuantity}
+      </div>
+      <button
+        className="cursor-pointer w-10 h-full flex items-center justify-center bg-transparent hover:bg-[var(--color-gray-300)] transition-colors "
+        onClick={(e) => {
+          e.preventDefault();
+          const newQuantity = productQuantity + 1;
+          setProductQuantity(newQuantity);
+          const form = e.currentTarget.form;
+          const input = form?.querySelector(
+            'input[name="productQuantity"]'
+          ) as HTMLInputElement;
+
+          if (input) {
+            console.log(newQuantity);
+
+            input.value = newQuantity + "";
+          }
+          form?.requestSubmit();
+        }}>
+        +
+      </button>
+    </fetcher.Form>
   );
 }

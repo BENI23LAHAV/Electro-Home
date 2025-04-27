@@ -70,6 +70,7 @@ class CartService {
   static async cartCapacity(): Promise<Response> {
     try {
       const data = (await this.getCart()).data as CartContent[];
+
       return {
         success: true,
         message: "Cart capacity fetched successfully",
@@ -83,6 +84,62 @@ class CartService {
       };
     }
   }
+  static async changeQuantity(
+    productID: number,
+    quantity: number
+  ): Promise<Response> {
+    if (quantity >= 1) {
+      const data = (await this.getCart()).data as CartContent[];
+      const cartItem = data.find((item) => item.productId === productID);
+      if (cartItem) {
+        cartItem.quantity = quantity;
+        fs.writeFileSync(cartPath, JSON.stringify(data, null, 2));
+        return {
+          success: true,
+          message: "Quantity changed successfully",
+          data: null,
+        };
+      } else {
+        return {
+          success: false,
+          message: "Product not found in cart",
+          data: null,
+        };
+      }
+    } else {
+      return {
+        success: false,
+        message: "Quantity must be greater than 0",
+        data: null,
+      };
+    }
+  }
+  static async removeProduct(productID: number): Promise<Response> {
+    if (productID) {
+      const data = (await this.getCart()).data as CartContent[];
+      const cartItem = data.find((item) => item.productId === productID);
+      if (cartItem) {
+        data.splice(data.indexOf(cartItem), 1);
+        fs.writeFileSync(cartPath, JSON.stringify(data, null, 2));
+        return {
+          success: true,
+          message: "Product removed from cart successfully",
+          data: null,
+        };
+      } else {
+        return {
+          success: false,
+          message: "Product not found in cart",
+          data: null,
+        };
+      }
+    } else {
+      return {
+        success: false,
+        message: "Product ID is required",
+        data: null,
+      };
+    }
+  }
 }
-
 export default CartService;

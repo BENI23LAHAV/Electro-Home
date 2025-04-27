@@ -3,10 +3,7 @@ import image1 from "app/lib/images/image1.jpeg";
 import { Soon } from "./navbar";
 import "app/app.css";
 
-// import CategoriesService from "../lib/services/categoriesService";
-// import ProductService from "~/lib/services/productService";
-// import CartService from "~/lib/services/cartService";
-
+import { formatNumber } from "./shoppingCart";
 import type {
   BodyPageProps,
   Category,
@@ -485,7 +482,7 @@ function ProductsGrid(props: ProductsGridProps) {
           </div>
           <div className="flex flex-row justify-between px-5">
             <p className="text-[var(--color-primary-light)] text-xl font-bold">
-              {item.price} ₪
+              {formatNumber(item.price)} ₪
             </p>
 
             <button
