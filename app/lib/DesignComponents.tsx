@@ -1,11 +1,6 @@
 import { NavLink } from "react-router";
-import type { ATagProps, StarRatingProps } from "./definitions";
+import type { ATagProps, LogoProps, StarRatingProps } from "./definitions";
 
-interface LogoProps {
-  showIcon?: boolean;
-  width?: string | number;
-  height?: string | number;
-}
 function Logo({ showIcon = true, width = "auto", height = "auto" }: LogoProps) {
   return (
     <NavLink to={"/"}>

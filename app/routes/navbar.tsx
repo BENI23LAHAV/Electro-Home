@@ -12,7 +12,7 @@ export function Navbar({ cartCapacity }: { cartCapacity: number }) {
   return (
     <>
       <div className="h-20 w-full fixed top-0 flex flex-row justify-between my-0 mx-auto items-center shadow-[var(--shadow-dropdown)] bg-white z-30">
-        <Logo className="m-0 p-0 " />
+        <Logo />
 
         <ul className="flex flex-row w-[33%] justify-between ml-[31%] mx-auto">
           {navItems.map((item, index) => (

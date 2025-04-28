@@ -6,7 +6,7 @@ import type {
   PriceProps,
 } from "../lib/definitions";
 import { formatNumber } from "./shoppingCart";
-import type { Route } from "../+types/root";
+
 import {
   TrackComponent,
   LocationComponent,
@@ -18,6 +18,7 @@ import {
   DeliveryConditons,
 } from "~/lib/DesignComponents";
 import { useFetcher } from "react-router";
+import type { Route } from "./+types/singlProduct";
 
 export async function loader({ params }: Route.LoaderArgs) {
   const { default: CategoriesService } = await import(
@@ -26,10 +27,11 @@ export async function loader({ params }: Route.LoaderArgs) {
   const { default: ProductService } = await import(
     "~/lib/services/productService"
   );
+
   const product = (await ProductService.getProductById(Number(params.id)))
     .data as Product;
 
-  let productCategories;
+  let productCategories: Category[] = [];
   if (product) {
     const allCategories = (await CategoriesService.getCategories())
       .data as Category[];
@@ -39,7 +41,10 @@ export async function loader({ params }: Route.LoaderArgs) {
     );
   }
 
-  return { product, productCategories };
+  return {
+    product,
+    productCategories,
+  };
 }
 
 export async function action({ request }: Route.ActionArgs) {
@@ -55,9 +60,8 @@ export async function action({ request }: Route.ActionArgs) {
 
 export default function SingleProduct({ loaderData }: Route.ComponentProps) {
   const product = loaderData.product as Product;
-  const productCategories = loaderData.productCategories as
-    | Category[]
-    | undefined;
+  const productCategories = loaderData.productCategories as Category[];
+
   const fetcher = useFetcher();
 
   const [currentImage, setCurrentImage] = useState(product.images[0]);
@@ -86,12 +90,13 @@ export default function SingleProduct({ loaderData }: Route.ComponentProps) {
   }
 
   return (
-    <div className="mt-20 flex flex-row justify-between mr-[2%]">
+    <div className="mt-15 pt-10 flex flex-row justify-between mr-[2%]">
       <div className="w-1/2">
-        <div className="max-w-[95%] h-[700px] p-10 bg-white rounded-md my-5 shadow overflow-hidden">
+        <div className="w-4/5 aspect-square p-15 bg-white rounded-md my-5 shadow overflow-hidden mx-auto">
           <LargeImage url={currentImage} />
         </div>
-        <div className="flex flex-row justify-start gap-2 my-5">
+
+        <div className="flex flex-row justify-start  gap-2 my-5 overflow-hidden">
           {product.images.map((item, k) => (
             <SmallImage
               key={k}
@@ -227,8 +232,8 @@ function LargeImage({ url }: { url: string }) {
     const centerX = bounds.width / 2;
     const centerY = bounds.height / 2;
 
-    const offsetX = ((relativeX - centerX) / centerX) * -100;
-    const offsetY = ((relativeY - centerY) / centerY) * -100;
+    const offsetX = ((relativeX - centerX) / centerX) * -150;
+    const offsetY = ((relativeY - centerY) / centerY) * -150;
 
     setOffset({ x: offsetX, y: offsetY });
   };
@@ -238,11 +243,11 @@ function LargeImage({ url }: { url: string }) {
   };
 
   return (
-    <div className="w-full h-full overflow-hidden rounded-md ">
+    <div className="w-full h-full overflow-hidden rounded-md">
       <img
         src={url}
         alt="current product"
-        className={`w-full h-full  object-cover transition-transform duration-500 ease-out hover:scale-150`}
+        className="w-full h-full object-contain transition-transform duration-500 ease-out hover:scale-150"
         style={{
           transform: `translate(${offset.x}px, ${offset.y}px)`,
         }}

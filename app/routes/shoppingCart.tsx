@@ -1,12 +1,12 @@
 import { useMemo, useState } from "react";
 import type { CartContent, Product } from "~/lib/definitions";
-import type { Route } from "../+types/root";
 import { Form, NavLink, useFetcher } from "react-router";
 import {
   ArrowComponent,
   RemoveComponent,
   WalletComponent,
 } from "~/lib/DesignComponents";
+import type { Route } from "./+types/shoppingCart";
 
 export async function loader() {
   const { default: CartService } = await import("~/lib/services/cartService");
@@ -21,7 +21,8 @@ export async function loader() {
       return product;
     })
   );
-  return { products, cartContent };
+  const res = { products: products as Product[], cartContent: cartContent };
+  return res;
 }
 
 export async function action({ request }: Route.ActionArgs) {
@@ -47,7 +48,7 @@ export async function action({ request }: Route.ActionArgs) {
 
 export default function ShoppingCart({ loaderData }: Route.ComponentProps) {
   const products = loaderData.products as Product[] | undefined;
-  const cartContent = loaderData.cartContent as CartContent[] | undefined;
+  const cartContent = loaderData?.cartContent as CartContent[] | undefined;
   const fetcher = useFetcher();
   const discountPercent = fetcher.data?.discountPercent ?? 0;
 

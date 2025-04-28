@@ -18,10 +18,10 @@ import type {
   Response,
   SortBy,
 } from "../lib/definitions";
-import { Form, NavLink, ScrollRestoration, useSubmit } from "react-router";
+import { Form, NavLink } from "react-router";
 import { useEffect, useRef, useState } from "react";
 
-export async function loader({ params, request }: Route.LoaderArgs) {
+export async function loader({ request }: Route.LoaderArgs) {
   const { default: CartService } = await import("~/lib/services/cartService");
   const { default: CategoriesService } = await import(
     "~/lib/services/categoriesService"
@@ -34,7 +34,7 @@ export async function loader({ params, request }: Route.LoaderArgs) {
   const url = new URL(request.url);
   let category = url.searchParams.get("category");
   const price = url.searchParams.get("price");
-  const sortBy = url.searchParams.get("sortBy");
+  const sortBy = url.searchParams.get("sortBy") || "pop";
   const search = url.searchParams.get("search");
 
   const categories = await CategoriesService.getCategories();
@@ -45,7 +45,7 @@ export async function loader({ params, request }: Route.LoaderArgs) {
 
   const withoutCategory = category;
 
-  !withoutCategory ? (category = "all") : "";
+  withoutCategory ? "" : (category = "all");
   products = await ProductService.getProductsByCategory(category as string);
 
   if (sortBy) {
@@ -57,13 +57,13 @@ export async function loader({ params, request }: Route.LoaderArgs) {
   if (search) {
     products.data = filterBySearch(products.data as Product[], search);
   }
+
   const res = {
     categories: (await categories.data) as Category[],
     products: (await products.data) as Product[],
   };
   return res;
 }
-export async function action({ request }: Route.ActionArgs) {}
 
 function orderBy(products: Product[], sortBy: SortBy): Product[] {
   switch (sortBy) {
@@ -166,24 +166,14 @@ function HomeImage(props: any) {
 }
 
 export function BodyPage(props: BodyPageProps) {
-  const submit = useSubmit();
-  function handleSubmit(event: React.ChangeEvent<HTMLInputElement>) {
-    const form = event.currentTarget.form;
-
-    submit(form, {
-      method: "get",
-      preventScrollReset: true,
-    });
-  }
-
   return (
     <div className="mb-15" id="our-products">
       <Title />
 
       <Form preventScrollReset>
-        <Categories categories={props.categories} handleSubmit={handleSubmit} />
+        <Categories categories={props.categories} />
         <div className="flex flex-row justify-between mt-10">
-          <PriceSlider handleSubmit={handleSubmit} />
+          <PriceSlider />
           <label
             htmlFor="sort-by"
             className="mt-2 mr-20 text-xl text-[var(--color-dark)]">
@@ -212,12 +202,7 @@ function Title() {
   );
 }
 
-function Categories({
-  categories,
-}: {
-  categories: Category[];
-  handleSubmit: (event: React.ChangeEvent<HTMLInputElement>) => void;
-}) {
+function Categories({ categories }: { categories: Category[] }) {
   const hasAllCategory = categories.some((item) => item.name === "הכול");
 
   const allCategories = hasAllCategory
@@ -384,7 +369,7 @@ function SortBy(props: any) {
           key={k}
           onClick={(e) => {
             e.preventDefault();
-
+            setClicked(k);
             const input = e.currentTarget.form?.querySelector(
               "input[name='sortBy']"
             ) as HTMLInputElement;
@@ -425,36 +410,37 @@ function ProductsGrid(props: ProductsGridProps) {
       {products.map((item, k) => (
         <NavLink
           to={`/product/${item.id}`}
-          key={k}
-          className="text-right bg-white hover:bg-[var(--color-light)] duration-300 h-90 overflow-hidden shadow-[var(--shadow-card)] rounded-md ">
-          <div className="min-w-full max-h-40 min-h-40 overflow-hidden relative">
+          key={item.id}
+          className="flex flex-col h-[420px] bg-white hover:bg-[var(--color-light)] transition-all duration-300 overflow-hidden shadow-md rounded-md">
+          <div className="w-full h-[200px] overflow-hidden relative bg-white">
             <img
               src={item.images[0]}
-              alt=""
-              className="w-full h-full  object-cover hover:transform-content hover:scale-[1.1] transition-[var(--transition-default)]"
+              alt={item.name}
+              className="w-full h-full object-contain transition-transform duration-300 hover:scale-105"
             />
             {item.discount > 0 && <Sale />}
             {item.reviews < 10 && <New />}
-          </div>{" "}
-          <div className="overflow-hidden max-h-40">
-            <h2 className="text-lg font-bold  mr-4 text-[var(--color-dark)]">
-              {" "}
-              {item.name}
-            </h2>
-            <h3 className="max-h-28 min-h-28 overflow-hidden my-2 mx-4 text-md text-[var(--color-dark-light)]">
-              {item.description}
-            </h3>
           </div>
-          <div className="flex flex-row justify-between px-5">
-            <p className="text-[var(--color-primary-light)] text-xl font-bold">
-              {formatNumber(item.price)} ₪
-            </p>
 
-            <button
-              className="bg-[var(--color-primary-light)] rounded-full px-2 py-1 text-white hover:bg-[var(--color-secondary)] transition-[var(--transition-default)]
-            hover:translate-y-[-5px] hover:duration-300 font-medium hover:cursor-pointer">
-              הוספה לסל
-            </button>
+          <div className="flex flex-col justify-between flex-grow p-4">
+            <div>
+              <h2 className="text-lg font-bold text-[var(--color-dark)] truncate">
+                {item.name}
+              </h2>
+              <h3 className="text-sm text-[var(--color-dark-light)] overflow-hidden line-clamp-3">
+                {item.description}
+              </h3>
+            </div>
+
+            <div className="flex items-center justify-between mt-4">
+              <p className="text-[var(--color-primary-light)] text-xl font-bold">
+                {formatNumber(item.price)} ₪
+              </p>
+
+              <button className="bg-[var(--color-primary-light)] rounded-full px-3 py-1 text-white hover:bg-[var(--color-secondary)] hover:translate-y-[-5px] hover:duration-300 font-medium cursor-pointer">
+                הוספה לסל
+              </button>
+            </div>
           </div>
         </NavLink>
       ))}
