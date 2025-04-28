@@ -9,5 +9,6 @@ export default defineConfig({
     watch: {
       ignored: ["**/app/lib/DB/cart.json"],
     },
+    port: 3500,
   },
 });

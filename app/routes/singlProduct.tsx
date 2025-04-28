@@ -4,11 +4,19 @@ import type {
   Category,
   Specialty,
   PriceProps,
-  StarRatingProps,
 } from "../lib/definitions";
 import { formatNumber } from "./shoppingCart";
 import type { Route } from "../+types/root";
-
+import {
+  TrackComponent,
+  LocationComponent,
+  ClockComponent,
+  StatusComponent,
+  Sale,
+  New,
+  StarRating,
+  DeliveryConditons,
+} from "~/lib/DesignComponents";
 import { useFetcher } from "react-router";
 
 export async function loader({ params }: Route.LoaderArgs) {
@@ -159,93 +167,6 @@ export default function SingleProduct({ loaderData }: Route.ComponentProps) {
   );
 }
 
-function DeliveryConditons({
-  title,
-  text,
-  Icon,
-}: {
-  title: string;
-  text: string;
-  Icon: React.ReactNode;
-}) {
-  return (
-    <div className="flex flex-col items-center gap-2 w-[30%] text-center shadow-[var(--shadow-card)] rounded-xl p-5">
-      <span className="bg-[var(--color-gray-200)] rounded-full p-2">
-        {Icon}
-      </span>
-      <span className="font-semibold text-[var(--color-dark)]">{title}</span>
-      <span className="text-[var(--color-gray-600)]">{text}</span>
-    </div>
-  );
-}
-
-function StarRating({ rating }: StarRatingProps) {
-  const stars = [];
-
-  for (let i = 1; i <= 5; i++) {
-    if (rating >= i) {
-      stars.push(
-        <svg
-          key={i}
-          className="w-6 h-6 text-yellow-400 fill-current"
-          viewBox="0 0 24 24">
-          <polygon
-            points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 
-                               12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
-          />
-        </svg>
-      );
-    } else if (rating >= i - 0.5) {
-      stars.push(
-        <svg key={i} className="w-6 h-6 text-yellow-400" viewBox="0 0 24 24">
-          <defs>
-            <linearGradient id={`half-${i}`} x1="100%" x2="0%" y1="0" y2="0">
-              <stop offset="50%" stopColor="currentColor" />
-              <stop offset="50%" stopColor="transparent" stopOpacity="1" />
-            </linearGradient>
-          </defs>
-          <polygon
-            fill={`url(#half-${i})`}
-            stroke="currentColor"
-            strokeWidth="1"
-            points="12 2 15.09 8.26 22 9.27 17 14.14 
-                        18.18 21.02 12 17.77 5.82 21.02 
-                        7 14.14 2 9.27 8.91 8.26 12 2"
-          />
-        </svg>
-      );
-    } else {
-      stars.push(
-        <svg
-          key={i}
-          className="w-6 h-6 text-gray-300 fill-current"
-          viewBox="0 0 24 24">
-          <polygon
-            points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 
-                               12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
-          />
-        </svg>
-      );
-    }
-  }
-
-  return <div className="flex  gap-1">{stars}</div>;
-}
-
-function Sale() {
-  return (
-    <span className="mr-3  bg-[var(--color-secondary)] rounded-full px-2 py-1 text-[12px] font-semibold text-[var(--color-dark)]">
-      במבצע!
-    </span>
-  );
-}
-function New() {
-  return (
-    <span className=" mr-3 bg-[var(--color-secondary)] rounded-full px-2 py-1 text-[12px] font-semibold text-[var(--color-dark)]">
-      חדש!{" "}
-    </span>
-  );
-}
 function EnterByDot({ children }: { children: React.ReactNode }) {
   if (children && typeof children === "string") {
     const lines: string[] = children?.split(".");
@@ -428,77 +349,7 @@ function Quantity({
     </div>
   );
 }
-function TrackComponent(props: any) {
-  return (
-    <svg
-      width={24}
-      height={24}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={2}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      {...props}>
-      <path d="M1 3H16V16H1z" />
-      <path d="M16 8L20 8 23 11 23 16 16 16 16 8z" />
-      <circle cx={5.5} cy={18.5} r={2.5} />
-      <circle cx={18.5} cy={18.5} r={2.5} />
-    </svg>
-  );
-}
-function ClockComponent(props: any) {
-  return (
-    <svg
-      width={24}
-      height={24}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={2}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      {...props}>
-      <circle cx={12} cy={12} r={10} />
-      <path d="M12 6L12 12 16 14" />
-    </svg>
-  );
-}
-function LocationComponent(props: any) {
-  return (
-    <svg
-      width={24}
-      height={24}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={2}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      {...props}>
-      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
-      <circle cx={12} cy={10} r={3} />
-    </svg>
-  );
-}
-function StatusComponent(props: any) {
-  return (
-    <svg
-      width={20}
-      height={20}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={2}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      {...props}>
-      <circle cx={12} cy={12} r={10} />
-      <path d="M12 8L12 12" />
-      <path d="M12 16L12.01 16" />
-    </svg>
-  );
-}
+
 function AddToCartMessage({
   visible,
   success,
@@ -532,5 +383,3 @@ function AddToCartMessage({
     </>
   );
 }
-
-export { Sale, New };

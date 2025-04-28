@@ -1,7 +1,12 @@
 import { useMemo, useState } from "react";
 import type { CartContent, Product } from "~/lib/definitions";
 import type { Route } from "../+types/root";
-import { Form, NavLink, useActionData, useFetcher } from "react-router";
+import { Form, NavLink, useFetcher } from "react-router";
+import {
+  ArrowComponent,
+  RemoveComponent,
+  WalletComponent,
+} from "~/lib/DesignComponents";
 
 export async function loader() {
   const { default: CartService } = await import("~/lib/services/cartService");
@@ -104,38 +109,6 @@ export default function ShoppingCart({ loaderData }: Route.ComponentProps) {
         </div>
       </div>
     </div>
-  );
-}
-function ArrowComponent(props: any) {
-  return (
-    <svg
-      width={16}
-      height={16}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={2}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      {...props}>
-      <path d="M19 12H5m7 7l-7-7 7-7" />
-    </svg>
-  );
-}
-function RemoveComponent(props: any) {
-  return (
-    <svg
-      width={18}
-      height={18}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={2}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      {...props}>
-      <path d="M18 6L6 18M6 6l12 12" />
-    </svg>
   );
 }
 
@@ -375,23 +348,6 @@ function Payment() {
   );
 }
 
-function WalletComponent(props: any) {
-  return (
-    <svg
-      width={20}
-      height={20}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={2}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      {...props}>
-      <rect x={1} y={4} width={22} height={16} rx={2} ry={2} />
-      <path d="M1 10L23 10" />
-    </svg>
-  );
-}
 export function formatNumber(value: number | string): string {
   const number = typeof value === "string" ? parseFloat(value) : value;
 

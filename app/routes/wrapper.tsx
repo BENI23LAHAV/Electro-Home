@@ -11,7 +11,7 @@ export async function loader() {
 }
 export default function Wrapper({ loaderData }: Route.ComponentProps) {
   const response = loaderData as Response | undefined;
-  const cartCapacity = response?.success ? response.data : 0;
+  const cartCapacity = response?.success ? (response.data as number) : 0;
   return (
     <>
       <Navbar cartCapacity={cartCapacity} />

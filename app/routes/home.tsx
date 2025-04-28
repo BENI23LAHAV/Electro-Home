@@ -1,6 +1,12 @@
 import type { Route } from "./+types/home";
 import image1 from "app/lib/images/image1.jpeg";
-import { Soon } from "./navbar";
+import {
+  Soon,
+  FilterComponent,
+  HomeButton,
+  New,
+  Sale,
+} from "../lib/DesignComponents";
 import "app/app.css";
 
 import { formatNumber } from "./shoppingCart";
@@ -14,7 +20,6 @@ import type {
 } from "../lib/definitions";
 import { Form, NavLink, ScrollRestoration, useSubmit } from "react-router";
 import { useEffect, useRef, useState } from "react";
-import { New, Sale } from "./singlProduct";
 
 export async function loader({ params, request }: Route.LoaderArgs) {
   const { default: CartService } = await import("~/lib/services/cartService");
@@ -160,19 +165,6 @@ function HomeImage(props: any) {
   );
 }
 
-function HomeButton(props: any) {
-  return (
-    <button
-      className="px-4 py-2 bg-[linear-gradient(45deg,rgba(43,156,216,0.03),rgba(92,209,164,0.05))]
-        border-[var(--color-primary)] border-[2.5px]
-        text-[var(--color-primary)] rounded-full hover:bg-gradient-to-r hover:from-[var(--color-primary)]
-        hover:to-[var(--color-primary)] hover:text-white
-        hover:translate-y-[-5px] hover:duration-300 hover:shadow-[0_10px_20px_rgba(110,0,255,0.2)] hover:cursor-pointer">
-      {props.children}
-    </button>
-  );
-}
-
 export function BodyPage(props: BodyPageProps) {
   const submit = useSubmit();
   function handleSubmit(event: React.ChangeEvent<HTMLInputElement>) {
@@ -281,11 +273,7 @@ function Button(props: any) {
     </button>
   );
 }
-function PriceSlider({
-  handleSubmit,
-}: {
-  handleSubmit: (event: React.ChangeEvent<HTMLInputElement>) => void;
-}) {
+function PriceSlider() {
   const min = 100;
   const max = 20000;
   const [price, setPrice] = useState<number>(max);
@@ -411,30 +399,7 @@ function SortBy(props: any) {
     </div>
   );
 }
-function FilterComponent(props: any) {
-  return (
-    <svg
-      width={18}
-      height={18}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={2}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      {...props}>
-      <path d="M4 21L4 14" />
-      <path d="M4 10L4 3" />
-      <path d="M12 21L12 12" />
-      <path d="M12 8L12 3" />
-      <path d="M20 21L20 16" />
-      <path d="M20 12L20 3" />
-      <path d="M1 14L7 14" />
-      <path d="M9 8L15 8" />
-      <path d="M17 16L23 16" />
-    </svg>
-  );
-}
+
 function SearchInput(props: any) {
   return (
     <div className="min-w-[90%] max-h-12 mt-10  rounded-full overflow-hidden shadow-[var(--shadow-card)] relative z-10">

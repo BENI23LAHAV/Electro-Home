@@ -1,3 +1,5 @@
+import type { ReactNode } from "react";
+
 interface Category {
   id: string;
   name: string;
@@ -61,6 +63,17 @@ type StarRatingProps = {
 };
 
 type SortBy = "pop" | "htl" | "lth";
+
+interface ScrollLinkProps {
+  targetId: string;
+  children: ReactNode;
+}
+interface LogoProps {
+  showIcon?: boolean;
+  width?: string | number;
+  height?: string | number;
+}
+
 export type {
   Category,
   Product,
@@ -74,4 +87,6 @@ export type {
   Specialty,
   PriceProps,
   StarRatingProps,
+  ScrollLinkProps,
+  LogoProps,
 };
