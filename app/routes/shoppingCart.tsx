@@ -97,18 +97,16 @@ export default function ShoppingCart({ loaderData }: Route.ComponentProps) {
           <Products products={products} cartContentMap={cartContentMap} />
         </div>
         <div className="w-1/3 shadow-[--shadow-card] bg-white mx-6 p-10 rounded-2xl flex flex-col">
-          <div className="w-4/5 mx-auto">
-            <CheckoutHeader />
-            <Summary productsNum={productsNum} totalPrice={totalPrice} />
-            <Shipping />
-            <Takses totalPrice={totalPrice} />
-            <Total
-              totalPrice={totalPrice}
-              totalDiscount={totalDiscount}
-              fetcher={fetcher}
-            />
-            <Payment />
-          </div>
+          <CheckoutHeader />
+          <Summary productsNum={productsNum} totalPrice={totalPrice} />
+          <Shipping />
+          <Takses totalPrice={totalPrice} />
+          <Total
+            totalPrice={totalPrice}
+            totalDiscount={totalDiscount}
+            fetcher={fetcher}
+          />
+          <Payment />
         </div>
       </div>
     </div>
@@ -159,7 +157,7 @@ function Products({
       {products &&
         products.map((product, index) => {
           return (
-            <div className="w-4/5 mx-auto">
+            <div className="">
               <div className="grid grid-cols-[1fr_2fr_0.5fr_1fr_0.5fr_0.5fr] gap-5 text-[var(--color-dark)] font-bold text-lg">
                 <NavLink to={`/product/${product.id}`}>
                   {" "}
