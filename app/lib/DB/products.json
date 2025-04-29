@@ -80,8 +80,8 @@
     "name": "פיליפס אמבילייט 58 אינץ'",
     "description": "טלוויזיית LED עם טכנולוגית Ambilight המקרינה אור מאחורי המסך בהתאם לתמונה. רזולוציית 4K ומעבד P5 לתמונה חדה ומציאותית.",
     "images": [
-      "https://example.com/images/philips-ambilight-58-1.jpg",
-      "https://example.com/images/philips-ambilight-58-2.jpg"
+      "https://www.dailysale.co.il/images/itempics/79732_201020231144141.jpg",
+      "https://www.dailysale.co.il/images/itempics/79732_20102023114701.jpg"
     ],
     "price": 3799,
     "discount": 400,
@@ -128,8 +128,9 @@
     "name": "TCL QLED 65 אינץ'",
     "description": "טלוויזיית QLED במחיר משתלם עם רזולוציית 4K, תאורת Quantum Dot וטכנולוגיית HDR Premium. ממשק Google TV מובנה וחווית משתמש חלקה.",
     "images": [
-      "https://example.com/images/tcl-qled-65-1.jpg",
-      "https://example.com/images/tcl-qled-65-2.jpg"
+      "https://d2d22nphq0yz8t.cloudfront.net/6cbcadef-96e0-49e9-b3bd-9921afe362db/www.payngo.co.il/media/catalog/product/c/6/c69b_1.png",
+      "https://d2d22nphq0yz8t.cloudfront.net/6cbcadef-96e0-49e9-b3bd-9921afe362db/www.payngo.co.il/media/catalog/product/c/6/c69b_3__1.png",
+      "https://d2d22nphq0yz8t.cloudfront.net/6cbcadef-96e0-49e9-b3bd-9921afe362db/www.payngo.co.il/media/catalog/product/c/6/c69b_4__1.png"
     ],
     "price": 2999,
     "discount": 400,
@@ -378,8 +379,9 @@
     "name": "HP Pavilion All-in-One",
     "description": "מחשב שולחני הכל-במסך עם מסך 27 אינץ' FHD, מעבד Intel Core i5, 8GB RAM ו-512GB SSD. מצלמה מובנית וממשק זיהוי פנים.",
     "images": [
-      "https://example.com/images/hp-pavilion-aio-1.jpg",
-      "https://example.com/images/hp-pavilion-aio-2.jpg"
+      "https://m.media-amazon.com/images/I/612FzPlgWxL._AC_SL1500_.jpg",
+      "https://m.media-amazon.com/images/I/61WBBJ9Qx-L._AC_SL1500_.jpg",
+      "https://m.media-amazon.com/images/I/51pIPtcSVpL._AC_SL1500_.jpg"
     ],
     "price": 3999,
     "discount": 300,
@@ -685,7 +687,11 @@
     "id": 3007,
     "name": "אייפון SE (2024)",
     "description": "סמארטפון אייפון במחיר נגיש עם מעבד A16 Bionic, מסך 4.7 אינץ' וכפתור בית עם Touch ID. מצלמה 12MP ו-128GB אחסון.",
-    "images": [],
+    "images": [
+      "https://www.ivory.co.il/files/catalog/org/1742196189x89WG.webp",
+      "https://www.ivory.co.il/files/catalog/org/1742196189o89TF.webp",
+      "https://www.ivory.co.il/files/catalog/org/1742196189D89Ef.webp"
+    ],
     "price": 2499,
     "discount": 0,
     "categories": ["smartphones"],
@@ -706,8 +712,9 @@
     "name": "סמסונג גלקסי A54",
     "description": "סמארטפון מבית סמסונג במחיר ביניים עם מצלמה משולשת 50MP, מסך Super AMOLED 6.4 אינץ', סוללה חזקה ו-128GB אחסון.",
     "images": [
-      "https://example.com/images/samsung-a54-1.jpg",
-      "https://example.com/images/samsung-a54-2.jpg"
+      "https://d2d22nphq0yz8t.cloudfront.net/6cbcadef-96e0-49e9-b3bd-9921afe362db/www.payngo.co.il/media/catalog/product/s/m/sm-a546_galaxy-a54-5g_awesome-graphite_front.png",
+      "https://d2d22nphq0yz8t.cloudfront.net/6cbcadef-96e0-49e9-b3bd-9921afe362db/www.payngo.co.il/media/catalog/product/s/m/sm-a546_galaxy-a54-5g_awesome-graphite_front-r30.png",
+      "https://d2d22nphq0yz8t.cloudfront.net/6cbcadef-96e0-49e9-b3bd-9921afe362db/www.payngo.co.il/media/catalog/product/s/m/sm-a546_galaxy-a54-5g_awesome-graphite_back.png"
     ],
     "price": 1699,
     "discount": 200,
@@ -976,8 +983,10 @@
     "name": "מערכת רמקולים 5.1 Logitech",
     "description": "מערכת רמקולים 5.1 לחווית קולנוע ביתית עם סאבוופר עוצמתי, רמקולים לווייניים איכותיים ושלט לשליטה מרחוק.",
     "images": [
-      "https://example.com/images/logitech-speakers-1.jpg",
-      "https://example.com/images/logitech-speakers-2.jpg"
+      "https://www.ivory.co.il/files/catalog/org/1593084882z82Lo.jpg",
+      "https://www.ivory.co.il/files/catalog/org/1593084882c82Dr.jpg",
+      "https://www.ivory.co.il/files/catalog/org/1593084883f83QP.jpg",
+      "https://www.ivory.co.il/files/catalog/org/1593084883x83PH.jpg"
     ],
     "price": 999,
     "discount": 0,
@@ -1054,8 +1063,9 @@
     "name": "צמיד כושר פיטביט צ'ארג' 6",
     "description": "צמיד כושר עם מסך צבעוני, מעקב דופק מתמשך, מעקב שינה, GPS מובנה וחיי סוללה של עד 7 ימים. עמיד במים עד 50 מטר.",
     "images": [
-      "https://example.com/images/fitbit-charge-6-1.jpg",
-      "https://example.com/images/fitbit-charge-6-2.jpg"
+      "https://d2d22nphq0yz8t.cloudfront.net/6cbcadef-96e0-49e9-b3bd-9921afe362db/www.payngo.co.il/media/catalog/product/v/i/vivosmart5_black_front.jpg",
+      "https://d2d22nphq0yz8t.cloudfront.net/6cbcadef-96e0-49e9-b3bd-9921afe362db/www.payngo.co.il/media/catalog/product/v/i/vivosmart5_black_main.jpg",
+      "https://d2d22nphq0yz8t.cloudfront.net/6cbcadef-96e0-49e9-b3bd-9921afe362db/www.payngo.co.il/media/catalog/product/v/i/vivosmart5_black_back.jpg"
     ],
     "price": 799,
     "discount": 100,
@@ -1312,8 +1322,7 @@
     "name": "כבל USB-C ל-Lightning בלקין",
     "description": "כבל באיכות גבוהה עם אישור MFi של אפל, אורך 2 מטר, חומרים עמידים ותמיכה בטעינה מהירה עד 20W. מתאים לכל מכשירי אפל.",
     "images": [
-      "https://example.com/images/belkin-cable-1.jpg",
-      "https://example.com/images/belkin-cable-2.jpg"
+      "https://d3m9l0v76dty0.cloudfront.net/system/photos/13698989/large/c60002d5d499299c6dfc00810a72aaba.png"
     ],
     "price": 129,
     "discount": 20,
@@ -1357,8 +1366,8 @@
     "name": "מגן מסך לאייפון Spigen",
     "description": "מגן מסך זכוכית מחוסמת עם דיוק התקנה גבוה, ציפוי נגד טביעות אצבע, עמידות גבוהה בפני שריטות וחבילה הכוללת 2 יחידות.",
     "images": [
-      "https://example.com/images/spigen-screen-protector-1.jpg",
-      "https://example.com/images/spigen-screen-protector-2.jpg"
+      "https://m.media-amazon.com/images/I/61y8cbgj+TL._AC_SL1200_.jpg",
+      "https://m.media-amazon.com/images/I/61P0VIdKwBL._AC_SL1200_.jpg"
     ],
     "price": 89,
     "discount": 0,
@@ -1380,8 +1389,9 @@
     "name": "תיק נשיאה למחשב נייד Targus",
     "description": "תיק איכותי למחשבים ניידים עד 15.6 אינץ', עם תאים רבים לאחסון, גב מרופד, רצועת כתף מתכווננת וחומרים עמידים במים.",
     "images": [
-      "https://example.com/images/targus-laptop-bag-1.jpg",
-      "https://example.com/images/targus-laptop-bag-2.jpg"
+      "https://www.tik4u.co.il/wp-content/uploads/2023/06/SW600648_12022022114435.png",
+      "https://www.tik4u.co.il/wp-content/uploads/2023/06/SW600648_12022022114515-595x530.jpg",
+      "https://www.tik4u.co.il/wp-content/uploads/2023/06/SW600648_12022022114507-595x503.jpg"
     ],
     "price": 249,
     "discount": 50,
@@ -1489,8 +1499,7 @@
     "name": "כיסוי מגן לאייפון Spigen Ultra Hybrid",
     "description": "כיסוי שקוף עם גב אחורי קשיח ומסגרת גמישה, הגנה מתקדמת מפני נפילות, עיצוב דק במיוחד וגישה קלה לכל הכפתורים.",
     "images": [
-      "https://example.com/images/spigen-case-1.jpg",
-      "https://example.com/images/spigen-case-2.jpg"
+      "https://shipi.b-cdn.net/wp-content/uploads/2024/09/%D7%9B%D7%99%D7%A1%D7%95%D7%99-%D7%A9%D7%A7%D7%95%D7%A3-%D7%93%D7%A7-%D7%9C%D7%90%D7%99%D7%99%D7%A4%D7%95%D7%9F-16-%D7%A4%D7%A8%D7%95-%D7%AA%D7%95%D7%9E%D7%9A-%D7%98%D7%A2%D7%99%D7%A0%D7%AA-MagSafe-%D7%90%D7%9C%D7%97%D7%95%D7%98%D7%99%D7%AA-Grip-Case-Crystal-1.png"
     ],
     "price": 149,
     "discount": 30,

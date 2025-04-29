@@ -1,3 +1,4 @@
+import path from "path";
 import { Logo } from "../lib/DesignComponents";
 import { FooterUnderline, ATag } from "../lib/DesignComponents";
 import {
@@ -5,12 +6,29 @@ import {
   InstegramComponent,
   TwiterComponent,
 } from "../lib/DesignComponents";
-const quickLinks = ["דף הבית", "מוצרים", "אודות", "צור קשר"];
+const quickLinks = [
+  { name: "דף הבית", path: "/" },
+  { name: "מוצרים", path: "/#our-products" },
+  { name: "אודות", path: null },
+  { name: "צור קשר", path: null },
+];
 const supportLinks = [
-  "מדיניות משלוחים",
-  "מדיניות החזרות",
-  "שאלות נפוצות",
-  "תנאי שימוש",
+  {
+    name: "מדיניות משלוחים",
+    path: null,
+  },
+  {
+    name: "מדיניות החזרות",
+    path: null,
+  },
+  {
+    name: "שאלות נפוצות",
+    path: null,
+  },
+  {
+    name: "תנאי שימוש",
+    path: null,
+  },
 ];
 const contactInfo = ["info@example.com", "03-1234567", "אחד העם 1, תל אביב"];
 
@@ -52,7 +70,7 @@ export default function Footer() {
           <h3 className="text-lg font-bold  ">קישורים מהירים</h3>{" "}
           <FooterUnderline />
           {quickLinks.map((item, k) => (
-            <ATag text={item} key={k} />
+            <ATag text={item.name} key={k} path={item.path} />
           ))}
         </div>
         <div className="relative  flex flex-col space-y-3">
@@ -60,7 +78,7 @@ export default function Footer() {
           <h3 className="text-lg font-bold ">עזרה ותמיכה</h3>{" "}
           <FooterUnderline />
           {supportLinks.map((item, k) => (
-            <ATag text={item} key={k} />
+            <ATag text={item.name} key={k} path={item.path} />
           ))}
         </div>
         <div className="relative flex flex-col space-y-3">

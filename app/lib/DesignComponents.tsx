@@ -115,7 +115,7 @@ function FooterUnderline() {
 function ATag(props: ATagProps) {
   return (
     <a
-      href=""
+      href={props?.path || ""}
       className=" hover:text-[var(--color-tertiary)] hover:translate-x-[-5px] duration-300">
       {props.text}
     </a>

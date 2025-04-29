@@ -247,7 +247,7 @@ function LargeImage({ url }: { url: string }) {
       <img
         src={url}
         alt="current product"
-        className="w-full h-full object-contain transition-transform duration-500 ease-out hover:scale-150"
+        className="w-full h-full object-contain transition-transform duration-500 ease-out hover:scale-150 hover:cursor-zoom-in"
         style={{
           transform: `translate(${offset.x}px, ${offset.y}px)`,
         }}
@@ -275,7 +275,7 @@ function SmallImage({
       <img
         src={url}
         alt=""
-        className="max-w-40 max-h-40  p-3 rounded-md cursor-pointer shadow-[var(--shadow-card)]"
+        className="max-w-30 max-h-30  p-3 rounded-md cursor-pointer shadow-[var(--shadow-card)]"
         onClick={() => setCurrentImage(url)}
       />
     </div>

@@ -40,7 +40,10 @@ interface Response {
   message: string;
   data: unknown;
 }
-type ATagProps = { text: string };
+interface ATagProps {
+  text: string;
+  path?: string | null | undefined;
+}
 
 interface BodyPageProps {
   categories: Category[];
