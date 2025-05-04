@@ -230,14 +230,14 @@ function StatusComponent(props: any) {
 }
 function Sale() {
   return (
-    <span className="mr-3  bg-[var(--color-secondary)] rounded-full px-2 py-1 text-[12px] font-semibold text-[var(--color-dark)]">
+    <span className="mr-3 absolute top-2   bg-[var(--color-secondary)] rounded-full px-2 py-1 text-[12px] font-semibold text-[var(--color-dark)]">
       במבצע!
     </span>
   );
 }
 function New() {
   return (
-    <span className=" mr-3 bg-[var(--color-secondary)] rounded-full px-2 py-1 text-[12px] font-semibold text-[var(--color-dark)]">
+    <span className=" mr-3 absolute top-2 left-2  bg-[var(--color-success)] rounded-full px-2 py-1 text-[12px] font-semibold text-[var(--color-dark)]">
       חדש!{" "}
     </span>
   );

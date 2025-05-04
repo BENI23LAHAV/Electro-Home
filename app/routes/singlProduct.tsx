@@ -305,17 +305,21 @@ function Specification({
         מפרט טכני
       </h2>
       {data.map((item, k) => {
-        const categoryName = categoryMap.get(item[0]);
+        const spacialty = categoryMap.get(item[0]);
 
         return item[1] ? (
           <div
             key={item[0]}
             className="my-2 flex flex-row justify-between w-full text-md">
             <span className="font-semibold text-lg text-[var(--color-dark)]">
-              {categoryName}
+              {spacialty}
             </span>
             <span className="text-[var(--color-gray-500)]">
-              {item[1] ? item[1] : "לא ידוע"}
+              {item[1]
+                ? typeof item[1] === "string"
+                  ? item[1]
+                  : item[1]?.join(", ")
+                : "לא ידוע"}
             </span>
           </div>
         ) : null;
